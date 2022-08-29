@@ -1,7 +1,7 @@
 import { Client as TelegramClient } from "./telegram/client/client";
 import processor from "./telegram/processor";
 
-const c = new TelegramClient(process.env.TOKEN); // insert your token here
+const c = new TelegramClient(process.env.TOKEN || ""); // insert your token here
 c.start();
 
 c.once("start", (e) => {
