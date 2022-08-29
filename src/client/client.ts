@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ResponseEvents, RequestTypes, Updates, Update } from "../../types/telegram";
+import { ResponseEvents, RequestTypes, Update, BasicResponse } from "../../types/telegram";
 import { EventEmitter } from "node:events";
 
 export class Client extends EventEmitter {
@@ -13,7 +13,7 @@ export class Client extends EventEmitter {
 
     public async start () {
         let answer = await this.request("getMe");
-        if (answer.ok) {
+        if (answer) {
             this.emit("start", answer);
             this.longpoll();
         }
@@ -23,20 +23,26 @@ export class Client extends EventEmitter {
         console.log(this.basicUri + this.token + "/" + methodName + "?" + this.URLSearchParamsFixed(methodParams));
         
         let response = await axios.get(this.basicUri + this.token + "/" + methodName + "?" + this.URLSearchParamsFixed(methodParams));
-        let data: RequestTypes[K]["response"] = await response.data;
+        let data: BasicResponse = await response.data;
 
-        return data;
+        if (!data.ok) {
+            throw new Error(`Bad response from telegram api`);
+        }
+
+        let result: RequestTypes[K]["response"] = data.result;
+
+        return result;
     }
 
     private async longpoll (updateId: number = 0) {
         let updates = await this.request("getUpdates", 
             { offset: (updateId != 0) ? updateId + 1 : updateId, timeout: 60});
-        
-        updates.result.forEach((update: Update) => {
+
+        updates.forEach((update: Update) => {
             this.emit("update", update);
         })
 
-        await this.longpoll(updates.result.at(-1)?.update_id);
+        await this.longpoll(updates.at(-1)?.update_id);
     }
 
     private URLSearchParamsFixed (init: any): string { // if someone has idea how to solve any to sth better write to issues
