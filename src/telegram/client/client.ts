@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ResponseEvents, RequestTypes, Update, BasicResponse } from "../../types/telegram";
+import { ResponseEvents, RequestTypes, Update, BasicResponse } from "../../../types/telegram";
 import { EventEmitter } from "node:events";
 
 export class Client extends EventEmitter {
@@ -19,9 +19,7 @@ export class Client extends EventEmitter {
         }
     }
 
-    public async request<K extends keyof RequestTypes>(methodName: K, methodParams: RequestTypes[K]["request"] = {}): Promise<RequestTypes[K]["response"]> {
-        console.log(this.basicUri + this.token + "/" + methodName + "?" + this.URLSearchParamsFixed(methodParams));
-        
+    public async request<K extends keyof RequestTypes>(methodName: K, methodParams: RequestTypes[K]["request"] = {}): Promise<RequestTypes[K]["response"]> {        
         let response = await axios.get(this.basicUri + this.token + "/" + methodName + "?" + this.URLSearchParamsFixed(methodParams));
         let data: BasicResponse = await response.data;
 
