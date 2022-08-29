@@ -5,13 +5,45 @@ export interface BasicResponse {
 };
 
 export interface Message {
-    "id": number,
-    "is_bot": boolean,
-    "first_name": string,
-    "username": string,
-    "can_join_groups": boolean,
-    "can_read_all_group_messages": boolean,
-    "supports_inline_queries": boolean
+    "message_id": number,
+    "from"?: User,
+    "sender_chat"?: User,
+    "date": number,
+    "chat": Chat,
+    "forward_from"?: User,
+    "forward_from_chat"?: Chat,
+    "forward_from_message_id"?: number,
+    "forward_signature"?: string,
+    "forward_sender_name"?: string,
+    "forward_date"?: number,
+    "is_automatic_forward"?: true,
+    "reply_to_message"?: Message,
+    "via_bot"?: User,
+    "edit_date"?: number,
+    "reply_markup"?: InlineKeyboardMarkup
+};
+
+export interface InlineKeyboardMarkup {
+    "inline_keyboard": [InlineKeyboardButton[]]
+};
+
+export interface InlineKeyboardButton {
+    "text": string,
+    "url": string,
+    "callback_data": string,
+    //web_app,
+    "login_url": LoginUrl,
+    "switch_inline_query": string,
+    "switch_inline_query_current_chat": string,
+    //callback_game,
+    "pay": boolean
+};
+
+export interface LoginUrl {
+    "url": string,
+    "forward_text"?: string,
+    "bot_username"?: string,
+    "request_write_access"?: boolean
 };
 
 export interface Update {
@@ -23,14 +55,36 @@ export interface Update {
     //add more https://core.telegram.org/bots/api#update
 };
 
+export interface User {
+    "id": number,
+    "is_bot": boolean,
+    "first_name"?: string,
+    "last_name"?: string,
+    "username"?: string,
+    "language_code"?: string,
+    "is_premium"?: true,
+    "added_to_attachment_menu"?: true,
+    "can_join_groups"?: boolean,
+    "can_read_all_group_messages"?: boolean,
+    "supports_inline_queries"?: boolean
+};
+
+export interface Chat {
+    "id": number,
+    "type": string,
+    "title"?: string,
+    "username"?: string,
+    "first_name"?: string,
+    "last_name"?: string
+};
 
 export interface ResponseEvents {
-    "start":  [ message: Message ],
+    "start":  [ message: User ],
     "update": [ update: Update ]
 };
 
 export interface RequestTypes {
-    "getMe":      { request: {}, response: Message },
+    "getMe":      { request: {}, response: User },
     "getUpdates": { request: { offset?: number, limit?: number, timeout?: number, allowed_updates?: string[] }, 
                     response: Update[] }
 };

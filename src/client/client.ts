@@ -30,7 +30,7 @@ export class Client extends EventEmitter {
         }
 
         let result: RequestTypes[K]["response"] = data.result;
-
+            
         return result;
     }
 
