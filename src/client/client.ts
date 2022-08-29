@@ -31,8 +31,6 @@ export class Client extends EventEmitter {
     private async longpoll (updateId: number = 0) {
         let updates = await this.request("getUpdates", 
             { offset: (updateId != 0) ? updateId + 1 : updateId, timeout: 60});
-
-        console.log(updates)
         
         updates.result.forEach((update: Update) => {
             this.emit("update", update);
