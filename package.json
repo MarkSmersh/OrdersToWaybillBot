@@ -2,9 +2,9 @@
   "name": "ordertowaybill",
   "version": "0.0.1",
   "description": "",
-  "main": "./src/index.ts",
+  "main": "ts-node ./src/index.ts",
   "scripts": {
-    "start": "./src/index.ts",
+    "start": "ts-node ./src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
