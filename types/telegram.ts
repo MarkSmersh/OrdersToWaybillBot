@@ -48,19 +48,19 @@ export interface Message {
 };
 
 export interface InlineKeyboardMarkup {
-    inline_keyboard: [InlineKeyboardButton[]]
+    inline_keyboard: InlineKeyboardButton[][]
 };
 
 export interface InlineKeyboardButton {
     text: string,
-    url: string,
-    callback_data: string,
+    url?: string,
+    callback_data?: string,
     //web_app,
-    login_url: LoginUrl,
-    switch_inline_query: string,
-    switch_inline_query_current_chat: string,
+    login_url?: LoginUrl,
+    switch_inline_query?: string,
+    switch_inline_query_current_chat?: string,
     //callback_game,
-    pay: boolean
+    pay?: boolean
 };
 
 export interface LoginUrl {
@@ -72,12 +72,23 @@ export interface LoginUrl {
 
 export interface Update {
     update_id: number,
-    message: Message,
-    edited_message: Message,
-    channel_post: Message,
-    edited_channel_post: Message
+    message?: Message,
+    edited_message?: Message,
+    channel_post?: Message,
+    edited_channel_post?: Message,
+    inline_query?: InlineQuery,
+    // chosen_inline_result,
+    callback_query?: CallbackQuery
     //add more https://core.telegram.org/bots/api#update
 };
+
+export interface InlineQuery {
+    id: string,
+    from: User,
+    query: string,
+    offset: string,
+    chat_type?: string,
+}
 
 export interface User {
     id: number,
@@ -101,6 +112,16 @@ export interface Chat {
     first_name?: string,
     last_name?: string
 };
+
+export interface CallbackQuery {
+    id: string,
+    from: User,
+    message?: Message,
+    inline_message_id?: string,
+    chat_instance: string,
+    data?: string,
+    game_short_name?: string
+}
 
 //#endregion
 
@@ -140,10 +161,10 @@ export interface RequestTypes {
         { 
             request: 
                 { 
-                    chat_id: number, text: string | undefined, parse_mode?: ParseModes, 
+                    chat_id: number | undefined, text: string | undefined, parse_mode?: ParseModes, 
                     entities?: MessageEntity[], disable_web_page_preview?: boolean, disable_notification?: boolean,
                     protect_content?: boolean, reply_to_message_id?: number, allow_sending_without_reply?: boolean,
-                    reply_markup?: InlineKeyboardMarkup | "ReplyKeyboardMarkup" | "ReplyKeyboardRemove" | "ForceReply"
+                    reply_markup?: InlineKeyboardMarkup | string
                 },
             response: Message 
         },
@@ -151,11 +172,20 @@ export interface RequestTypes {
         { 
             request: 
                 {
-                    chat_id: number, message_id: number, text: string, inline_message_id?: string, 
+                    chat_id: number | undefined, message_id: number, text: string, inline_message_id?: string, 
                     parse_mode?: ParseModes, entites?: MessageEntity[], disable_web_page_preview?: boolean,
                     reply_markup?: InlineKeyboardMarkup 
                 },
             response: Message 
+        },
+    answerCallbackQuery:
+        {
+            request: 
+                {
+                    callback_query_id: string, text?: string, show_alert?: boolean, url?: string,
+                    cache_time?: number
+                },
+            response: true
         }
 };
 
