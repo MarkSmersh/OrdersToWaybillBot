@@ -19,7 +19,7 @@ export class Client extends EventEmitter {
         }
     }
 
-    public async request<K extends keyof RequestTypes>(methodName: K, methodParams: RequestTypes[K]["request"] = {}): Promise<RequestTypes[K]["response"]> {        
+    public async request<K extends keyof RequestTypes>(methodName: K, methodParams: RequestTypes[K]["request"] = {}): Promise<RequestTypes[K]["response"]> {  
         let response = await axios.get(this.basicUri + this.token + "/" + methodName + "?" + this.URLSearchParamsFixed(methodParams));
         let data: BasicResponse = await response.data;
 

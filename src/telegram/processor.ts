@@ -1,16 +1,26 @@
-import { Update } from "../../types/telegram";
 import { Client } from "./client/client";
+import { Update } from "../../types/telegram";
+import { InlineButtonConstructor as IBC, InlineMarkupConstructor as IMC } from "./utils/keyboardConstructor"
 
 type SlashCommands = "/start" | "/help" | "/ping" | "/stop";
 
 export = (client: Client, event: Update): void => {
-    event.message.entities?.forEach((messageEntity) => {
-        if (messageEntity.type == "bot_command") {
-            let command = event.message.text?.split(" ").find((word) => word.startsWith("/")) as SlashCommands;
-            SlashCommandsProcessor(client, event, command);
-            return;
-        }
-    })
+    if (event.message) {
+        event.message.entities?.forEach((messageEntity) => {
+            if (messageEntity.type == "bot_command") {
+                let command = event.message?.text?.split(" ").find((word) => word.startsWith("/")) as SlashCommands;
+                SlashCommandsProcessor(client, event, command);
+                return;
+            }
+        });
+        return;
+    }
+
+    if (event.callback_query) {
+        client.request("answerCallbackQuery", { callback_query_id: event.callback_query.id, text: "Successfull button processing",
+            show_alert: true });
+        return;
+    }
 }
 
 const SlashCommandsProcessor = (client: Client, event: Update, command: SlashCommands) => {
@@ -28,33 +38,45 @@ const SlashCommandsProcessor = (client: Client, event: Update, command: SlashCom
 }
 
 async function startGreetings(client: Client, event: Update) {
-    await client.request("sendMessage", { chat_id: event.message.chat.id, 
-        text: "Start had detected"});
+    await client.request("sendMessage", { chat_id: event.message?.chat.id, 
+        text: "Start had detected", 
+        reply_markup: IMC (
+            [
+                IBC("Test Up", "1"),
+            ],
+            [
+                IBC("Test Left", "2"), IBC("Test Right", "3")
+            ],
+            [
+                IBC("Test Bottom", "4")
+            ]
+        )
+    });
 }
 
 async function helpMessage(client: Client, event: Update) {
-    await client.request("sendMessage", { chat_id: event.message.chat.id, parse_mode: "MarkdownV2",
-        text: `*Greetings*, [${event.message.chat.first_name}](tg://user?id=${event.message.chat.id})`});
+    await client.request("sendMessage", { chat_id: event.message?.chat.id, parse_mode: "MarkdownV2",
+        text: `*Greetings*, [${event.message?.chat.first_name}](tg://user?id=${event.message?.chat.id})`});
 }
 
 async function stopMessage(client: Client, event: Update) {
-    await client.request("sendMessage", { chat_id: event.message.chat.id,
+    await client.request("sendMessage", { chat_id: event.message?.chat.id,
         text: `It is a sad day :(`});
 }
 
 async function pingCalculation(client: Client, event: Update) {
     let timeBefore = Date.now();
 
-    let message = await client.request("sendMessage", { chat_id: event.message.chat.id,
+    let message = await client.request("sendMessage", { chat_id: event.message?.chat.id,
         text: `Ping: calculating...`});
 
     let timeAfter = Date.now();
 
-    await client.request("editMessageText", { chat_id: event.message.chat.id, message_id: message.message_id, 
+    await client.request("editMessageText", { chat_id: event.message?.chat.id, message_id: message.message_id, 
         text: `Ping: ${timeAfter - timeBefore}ms`})
 }
 
 async function unknownCommand(client: Client, event: Update) {
-    await client.request("sendMessage", { chat_id: event.message.chat.id,
+    await client.request("sendMessage", { chat_id: event.message?.chat.id,
         text: `There\`s no such command. Use Menu to get full list of available commands`});
 }
