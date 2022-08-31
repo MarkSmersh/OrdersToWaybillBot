@@ -1,7 +1,10 @@
 import { Client as TelegramClient } from "./telegram/client/client";
 import processor from "./telegram/processor";
 
-const c = new TelegramClient(process.env.TOKEN || ""); // insert your token here
+import * as dotenv from "dotenv";
+dotenv.config({ path: __dirname + "/.env" });
+
+const c = new TelegramClient(process.env.TOKEN as string); // insert your token here
 c.start();
 
 c.once("start", (e) => {
