@@ -7,16 +7,16 @@ export const UserState = sequelize.define("user-state", {
 })
 
 export const Order = sequelize.define("order", {
-    id: { type: DT.INTEGER, primaryKey: true, autoIncrement: true },
-    order: { type: DT.STRING },
-    phone_number: { type: DT.NUMBER },
-    full_name: { type: DT.STRING },
-    billing_type: { type: DT.STRING },
-    destination: { type: DT.STRING },
-    waybill: { type: DT.INTEGER },
-    order_state: { type: DT.STRING },
-    created_by: { type: DT.INTEGER },
-    created_at: { type: DT.DATE },
-    updated_by: { type: DT.INTEGER },
+    id: { type: DT.INTEGER, primaryKey: true, autoIncrement: true }, 
+    order: { type: DT.STRING }, // example: 
+    order_state: { type: DT.STRING }, // "created" | "packaged" | "sended"
+    phone_number: { type: DT.NUMBER }, // +381234567890
+    full_name: { type: DT.STRING }, // `${SecondName} ${FirstName} ${Surname}`
+    billing_type: { type: DT.STRING }, // "prepaid" | "cash"
+    destination: { type: DT.STRING }, // get from novaposhta api
+    waybill: { type: DT.INTEGER }, // get from novaposhta api
+    created_by: { type: DT.INTEGER }, // chat_id
+    created_at: { type: DT.DATE }, // 
+    updated_by: { type: DT.INTEGER }, // chat_id
     updated_at: { type: DT.DATE }
 })

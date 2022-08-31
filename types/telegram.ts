@@ -127,9 +127,10 @@ export interface CallbackQuery {
 
 //#region EntitiesTypes
 
+
 export interface MessageEntity {
     type: "mention" | "hashtag" | "cashtag" | "bot_command" | "url" | "email" | "phone_number" | "bold" | "italic" 
-        | "underline" | "strikethrough" | "spoiler" | "code" | "pre" | "text_link" | "text_mention" | "custom_emoji",
+    | "underline" | "strikethrough" | "spoiler" | "code" | "pre" | "text_link" | "text_mention" | "custom_emoji",
     offset: number,
     length: number,
     url: string,
@@ -139,6 +140,8 @@ export interface MessageEntity {
 }
 
 //#endregion
+
+//#region ClientTypes
 
 export interface ResponseEvents {
     start:  [ message: User ],
@@ -189,4 +192,6 @@ export interface RequestTypes {
         }
 };
 
+export type SlashCommands = "/start" | "/help" | "/ping" | "/stop";
 
+//#endregion
