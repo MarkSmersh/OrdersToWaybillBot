@@ -3,7 +3,6 @@ import { Update, SlashCommands } from "../../types/telegram";
 import { SlashCommandsProcessor } from "./processors/slashCommands";
 import { CallbacksProcessor } from "./processors/callbacks";
 
-
 export = (client: Client, event: Update): void => {
     if (event.message) {
         event.message.entities?.forEach((messageEntity) => {

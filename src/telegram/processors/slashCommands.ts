@@ -1,7 +1,7 @@
 import { Client } from "../client/client";
 import { Update, SlashCommands } from "../../../types/telegram";
 import { InlineButtonConstructor as IBC,
-    InlineMarkupConstructor as IMC } from "../utils/keyboardConstructor"
+         InlineMarkupConstructor as IMC } from "../utils/keyboardConstructor"
 
 export const SlashCommandsProcessor = (client: Client, event: Update, command: SlashCommands) => {
     let chosenFunc = (() => {
