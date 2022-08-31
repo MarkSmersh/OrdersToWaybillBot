@@ -1,6 +1,7 @@
 import { Client } from "./client/client";
 import { Update } from "../../types/telegram";
-import { InlineButtonConstructor as IBC, InlineMarkupConstructor as IMC } from "./utils/keyboardConstructor"
+import { InlineButtonConstructor as IBC,
+         InlineMarkupConstructor as IMC } from "./utils/keyboardConstructor"
 
 type SlashCommands = "/start" | "/help" | "/ping" | "/stop";
 
