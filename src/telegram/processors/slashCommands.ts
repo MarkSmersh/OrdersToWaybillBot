@@ -1,23 +1,11 @@
 import { Client } from "../client/client";
 import { Update, SlashCommands } from "../../../types/telegram";
 import { InlineButtonConstructor as IBC,
-         InlineMarkupConstructor as IMC } from "../utils/keyboardConstructor"
+         InlineMarkupConstructor as IMC } from "../utils/keyboardConstructor";
+import { UserState } from "../../database/models/models";
+import { statesList } from "../utils/stateConfig";
 
-export const SlashCommandsProcessor = (client: Client, event: Update, command: SlashCommands) => {
-    let chosenFunc = (() => {
-        switch (command) {
-            case "/start": return startGreetings;
-            case "/help": return helpMessage;
-            case "/stop": return stopMessage;
-            case "/ping": return pingCalculation;
-            default: return unknownCommand;
-        }
-    })()
-
-    chosenFunc(client, event);
-}
-
-async function startGreetings(client: Client, event: Update) {
+export async function startGreetings(client: Client, event: Update): Promise<statesList> {
     await client.request("sendMessage", { chat_id: event.message?.chat.id, 
         text: "Start had detected", 
         reply_markup: IMC (
@@ -32,19 +20,20 @@ async function startGreetings(client: Client, event: Update) {
             ]
         )
     });
+
+    await UserState.findOrCreate({ where: { user_id: event.message?.chat.id},
+        defaults: { user_id: event.message?.chat.id, state: "default" }
+    });
+
+    return "start";
 }
 
-async function helpMessage(client: Client, event: Update) {
+export async function helpMessage(client: Client, event: Update) {
     await client.request("sendMessage", { chat_id: event.message?.chat.id, parse_mode: "MarkdownV2",
         text: `*Greetings*, [${event.message?.chat.first_name}](tg://user?id=${event.message?.chat.id})`});
 }
 
-async function stopMessage(client: Client, event: Update) {
-    await client.request("sendMessage", { chat_id: event.message?.chat.id,
-        text: `It is a sad day :(`});
-}
-
-async function pingCalculation(client: Client, event: Update) {
+export async function pingCalculation(client: Client, event: Update) {
     let timeBefore = Date.now();
 
     let message = await client.request("sendMessage", { chat_id: event.message?.chat.id,
@@ -56,7 +45,7 @@ async function pingCalculation(client: Client, event: Update) {
         text: `Ping: ${timeAfter - timeBefore}ms`})
 }
 
-async function unknownCommand(client: Client, event: Update) {
+export async function unknownCommand(client: Client, event: Update) {
     await client.request("sendMessage", { chat_id: event.message?.chat.id,
         text: `There\`s no such command. Use Menu to get full list of available commands`});
 }
