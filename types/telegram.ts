@@ -151,45 +151,40 @@ export interface ResponseEvents {
 type ParseModes = "MarkdownV2"| "HTML" | "Markdown";
 
 export interface RequestTypes {
-    getMe:
+    getMe: {
+        request: {}, response: User 
+    },
+    getUpdates: {
+        request: { offset?: number, limit?: number, timeout?: number, allowed_updates?: string[] }, 
+        response: Update[] 
+    },
+    sendMessage: { 
+        request: 
+            { 
+                chat_id: number | undefined, text: string | undefined, parse_mode?: ParseModes, 
+                entities?: MessageEntity[], disable_web_page_preview?: boolean, disable_notification?: boolean,
+                protect_content?: boolean, reply_to_message_id?: number, allow_sending_without_reply?: boolean,
+                reply_markup?: InlineKeyboardMarkup | string
+            },
+        response: Message 
+    },
+    editMessageText: { 
+        request: 
         {
-            request: {}, response: User 
+            chat_id: number | undefined, message_id: number, text: string, inline_message_id?: string, 
+            parse_mode?: ParseModes, entites?: MessageEntity[], disable_web_page_preview?: boolean,
+            reply_markup?: InlineKeyboardMarkup 
         },
-    getUpdates:
+        response: Message 
+    },
+    answerCallbackQuery: {
+        request: 
         {
-            request: { offset?: number, limit?: number, timeout?: number, allowed_updates?: string[] }, 
-            response: Update[] 
+            callback_query_id: string, text?: string, show_alert?: boolean, url?: string,
+            cache_time?: number
         },
-    sendMessage: 
-        { 
-            request: 
-                { 
-                    chat_id: number | undefined, text: string | undefined, parse_mode?: ParseModes, 
-                    entities?: MessageEntity[], disable_web_page_preview?: boolean, disable_notification?: boolean,
-                    protect_content?: boolean, reply_to_message_id?: number, allow_sending_without_reply?: boolean,
-                    reply_markup?: InlineKeyboardMarkup | string
-                },
-            response: Message 
-        },
-    editMessageText:
-        { 
-            request: 
-                {
-                    chat_id: number | undefined, message_id: number, text: string, inline_message_id?: string, 
-                    parse_mode?: ParseModes, entites?: MessageEntity[], disable_web_page_preview?: boolean,
-                    reply_markup?: InlineKeyboardMarkup 
-                },
-            response: Message 
-        },
-    answerCallbackQuery:
-        {
-            request: 
-                {
-                    callback_query_id: string, text?: string, show_alert?: boolean, url?: string,
-                    cache_time?: number
-                },
-            response: true
-        }
+        response: true
+    }
 };
 
 export type SlashCommands = "/start" | "/help" | "/ping";
