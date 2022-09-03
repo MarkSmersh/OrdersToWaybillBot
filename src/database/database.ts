@@ -4,4 +4,8 @@ import path from "path";
 import * as dotenv from "dotenv";
 dotenv.config({ path: path.resolve(__dirname + "/../.env") });
 
-export = new Sequelize (process.env.DATABASE_URL as string, { dialect: "postgres" });
+export = new Sequelize (process.env.DATABASE_URL as string, { dialect: "postgres", dialectOptions: {
+    ssl: {
+        require: true, rejectUnauthorized: false
+    }
+}});
