@@ -17,6 +17,7 @@
   "dependencies": {
     "axios": "^0.27.2",
     "dotenv": "^16.0.2",
+    "pg": "^8.8.0",
     "sequelize": "^6.21.4",
     "ts-node": "^10.9.1"
   }
