@@ -11,6 +11,10 @@ export class Client extends EventEmitter {
         this.token = token;
     }
 
+    public load () {
+        this.emit("load");
+    } 
+
     public async start () {
         let answer = await this.request("getMe");
         if (answer) {

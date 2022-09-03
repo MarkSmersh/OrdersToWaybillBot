@@ -72,13 +72,13 @@ export interface LoginUrl {
 
 export interface Update {
     update_id: number,
-    message?: Message,
-    edited_message?: Message,
-    channel_post?: Message,
-    edited_channel_post?: Message,
-    inline_query?: InlineQuery,
+    message: Message,
+    edited_message: Message,
+    channel_post: Message,
+    edited_channel_post: Message,
+    inline_query: InlineQuery,
     // chosen_inline_result,
-    callback_query?: CallbackQuery
+    callback_query: CallbackQuery
     //add more https://core.telegram.org/bots/api#update
 };
 
@@ -127,7 +127,6 @@ export interface CallbackQuery {
 
 //#region EntitiesTypes
 
-
 export interface MessageEntity {
     type: "mention" | "hashtag" | "cashtag" | "bot_command" | "url" | "email" | "phone_number" | "bold" | "italic" 
     | "underline" | "strikethrough" | "spoiler" | "code" | "pre" | "text_link" | "text_mention" | "custom_emoji",
@@ -144,6 +143,7 @@ export interface MessageEntity {
 //#region ClientTypes
 
 export interface ResponseEvents {
+    load: [],
     start:  [ message: User ],
     update: [ update: Update ]
 };
@@ -192,6 +192,6 @@ export interface RequestTypes {
         }
 };
 
-export type SlashCommands = "/start" | "/help" | "/ping" | "/stop";
+export type SlashCommands = "/start" | "/help" | "/ping";
 
 //#endregion
