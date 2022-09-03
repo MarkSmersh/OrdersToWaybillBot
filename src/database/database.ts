@@ -1,3 +1,7 @@
 import { Sequelize } from "sequelize";
 
-export = new Sequelize (process.env.DB_URI as string);
+import path from "path";
+import * as dotenv from "dotenv";
+dotenv.config({ path: path.resolve(__dirname + "/../.env") });
+
+export = new Sequelize (process.env.DATABASE_URL as string, { dialect: "postgres" });
