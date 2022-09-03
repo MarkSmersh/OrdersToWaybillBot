@@ -4,6 +4,7 @@ import { InlineButtonConstructor as IBC,
          InlineMarkupConstructor as IMC } from "../utils/keyboardConstructor";
 import { UserState } from "../../database/models/models";
 import { statesList } from "../utils/stateConfig";
+import NovaposhtaClient from "../../novaposhta/client/NovaposhtaClient";
 
 export async function startGreetings(client: Client, event: Update): Promise<statesList> {
     await client.request("sendMessage", { chat_id: event.message?.chat.id, 
@@ -24,6 +25,14 @@ export async function startGreetings(client: Client, event: Update): Promise<sta
     await UserState.findOrCreate({ where: { user_id: event.message?.chat.id},
         defaults: { user_id: event.message?.chat.id, state: "default" }
     });
+
+    let data = await NovaposhtaClient.request("Address", "searchSettlements", { 
+        CityName: "київ",
+        Limit: "0",
+        Page: "0"
+    });
+
+    console.log(data);
 
     return "start";
 }

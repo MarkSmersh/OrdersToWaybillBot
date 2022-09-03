@@ -6,7 +6,6 @@ import database from "./database/database";
 import * as dotenv from "dotenv";
 dotenv.config({ path: __dirname + "/.env" });
 
-console.log(process.env.TOKEN);
 const c = new TelegramClient(process.env.TOKEN as string); // insert your token here
 
 c.once("load", async () => {
