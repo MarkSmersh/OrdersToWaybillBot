@@ -8,13 +8,13 @@ export interface BasicRequest {
 export interface InternetDocumentSaveRequest {
     SenderWarehouseIndex?: string,
     RecipientWarehouseIndex?: string,
-    PayerType: string,
-    PaymentMethod: string,
+    PayerType: CounterpartyTypes,
+    PaymentMethod: PaymentMethods,
     DateTime: string,
     CargoType: string,
     VolumeGeneral?: string,
     Weight: string,
-    ServiceType: string,
+    ServiceType: ServiceTypes,
     SeatsAmount: string,
     Description: string,
     Cost: string,
@@ -31,6 +31,28 @@ export interface InternetDocumentSaveRequest {
     // https://developers.novaposhta.ua/view/model/a90d323c-8512-11ec-8ced-005056b2dbe1/method/a965630e-8512-11ec-8ced-005056b2dbe1
 }
 
+export interface CounterpartySaveRequest {
+    FirstName: string,
+    MiddleName: string,
+    LastName: string,
+    Phone: string,
+    Email: string,
+    CounterpartyType: CounterpartyTypes,
+    CounterpartyProperty: CounterpartyProperties
+}
+
+export interface AddressGetWarehousesRequest {
+    CityName?: string,
+    FindByString?: string, 
+    CityRef?: string,
+    Page: string,
+    Limit: string,
+    Language: "UA",
+    TypeOfWarehouseRef: string,
+    WarehouseId: string,
+    SettlementRef?: string,
+}
+
 export interface BasicResponse {
     success: boolean,
     data: any,
@@ -41,7 +63,6 @@ export interface BasicResponse {
     errorCodes: string[],
     warningCodes: string[],
     infoCodes: string[]
-
 }
 
 interface responseInfo {
@@ -76,6 +97,110 @@ export interface AddressSearchSettlements {
     DeliveryCity: string
 }
 
+export interface CounterpartySaveResponse {
+    Ref: string,
+    Description: string,
+    FirstName: string,
+    MiddleName: string,
+    LastName: string,
+    Counterparty: string,
+    OwnershipForm: string,
+    OwnershipFormDescription: string,
+    EDRPOU: string,
+    CounterpartyType: CounterpartyTypes,
+    ContactPerson: ContactPerson
+}
+
+interface ContactPerson extends BasicResponse {
+    data: {
+        Ref: string,
+        Description: string,
+        LastName: string,
+        FirstName: string,
+        MiddleName: string
+    }[]
+}
+
+export interface CounterpartyGetCounterpartiesResponse {
+    Description: string,
+    Ref: string,
+    City: string,
+    Counterparty: string,
+    FirstName: string,
+    LastName: string,
+    MiddleName: string,
+    OwnershipFormRef: string,
+    OwnershipFormDescription: string,
+    EDRPOU: string,
+    CounterpartyType: string
+}
+
+export interface AddressGetWarehousesResponse {
+    SiteKey: string,
+    Description: string,
+    ShortAddress: string,
+    Phone: string,
+    TypeOfWarehouse: string,
+    Ref: string,
+    Number: string,
+    CityRef: string,
+    CityDescription: string,
+    SettlementRef: string,
+    SettlementDescription: string,
+    SettlementAreaDescription: string,
+    SettlementRegionsDescription: string,
+    SettlementTypeDescription: string,
+    Longitude: number,
+    Latitude: number,
+    PostFinance: "1" | "0",
+    BicycleParking: "1" | "0",
+    PaymentAccess: "1" | "0",
+    POSTerminal: "1" | "0",
+    InternationalShipping: "1" | "0",
+    SelfServiceWorkplacesCount: "1" | "0",
+    TotalMaxWeightAllowed: string,
+    PlaceMaxWeightAllowed: string,
+    SendingLimitationsOnDimensions: Dimensions,
+    ReceivingLimitationsOnDimensions: Dimensions,
+    Reception: Week,
+    Delivery: Week,
+    Schedule: Week,
+    DistrictCode: string,
+    WarehouseStatus: "Working" | string,
+    WarehouseStatusDate: string,
+    CategoryOfWarehouse: string,
+    RegionCity: string,
+    WarehouseForAgent: "1" | "0",
+    MaxDeclaredCost: string,
+    DenyToSelect: "1" | "0",
+    PostMachineType: "None" | "FullDayService" | "PartTime" | "ForResidentOfEntrance" | "Private" | "LimitedAccess",
+    PostalCodeUA: string,
+    OnlyReceivingParcel: "1" | "0",
+    WarehouseIndex: string
+}
+
+type CounterpartyProperties = "Sender" | "Recipient" | "ThirdPerson";
+type ServiceTypes = "DoorsDoors" | "DoorsWarehouse" | "WarehouseWarehouse" | "WarehouseDoors";
+type PaymentMethods = "Cash" | "NonCash";
+type CounterpartyTypes = "Recipient" | string;
+
+interface Dimensions {
+    Width: number,
+    Height: number,
+    Length: number
+}
+
+interface Week {
+    Monday: string,
+    Tuesday: string,
+    Wednesday: string,
+    Thursday: string,
+    Friday: string,
+    Saturday: string,
+    Sunday: string
+}
+
+
 export interface RequestTypes {
     InternetDocument: {
         save: {
@@ -100,7 +225,58 @@ export interface RequestTypes {
                 Page: string
             },
             response: AddressSearchSettlements
+        },
+        getWarehouseTypes: {
+            request: {},
+            response: {
+                Ref: string,
+                Description: string
+            }
+        },
+        getWarehouses: {
+            request: AddressGetWarehousesRequest,
+            response: AddressGetWarehousesResponse
         }
-    }
+
+    },
+    Counterparty: {
+        save: {
+            request: CounterpartySaveRequest,
+            response: CounterpartySaveResponse[]
+        },
+        getCounterparties: {
+            request: {
+                FindByString?: string,
+                CounterpartyProperty: string,
+                Page: string
+            }, 
+            response: CounterpartyGetCounterpartiesResponse
+        },
+        getCounterpartyAddresses: {
+            request: {
+                Ref: string,
+                CounterpartyProperty: CounterpartyProperties
+            },
+            response: {
+                Ref: string,
+                Description: string
+            }
+        },
+        getCounterpartyContactPersons: {
+            request: {
+                Ref: string,
+                Page?: string
+            },
+            response: {
+                Description: string,
+                Ref: string,
+                Phones: string,
+                Email: string,
+                LastName: string,
+                FirstName: string,
+                MiddleName: string
+            }
+        }
+    },
 }
 
