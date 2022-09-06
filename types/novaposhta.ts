@@ -179,10 +179,10 @@ export interface AddressGetWarehousesResponse {
     WarehouseIndex: string
 }
 
-type CounterpartyProperties = "Sender" | "Recipient" | "ThirdPerson";
-type ServiceTypes = "DoorsDoors" | "DoorsWarehouse" | "WarehouseWarehouse" | "WarehouseDoors";
-type PaymentMethods = "Cash" | "NonCash";
-type CounterpartyTypes = "Recipient" | string;
+export type CounterpartyProperties = "Sender" | "Recipient" | "ThirdPerson";
+export type ServiceTypes = "DoorsDoors" | "DoorsWarehouse" | "WarehouseWarehouse" | "WarehouseDoors";
+export type PaymentMethods = "Cash" | "NonCash";
+export type CounterpartyTypes = "Recipient" | string;
 
 interface Dimensions {
     Width: number,
@@ -224,18 +224,18 @@ export interface RequestTypes {
                 Limit: string,
                 Page: string
             },
-            response: AddressSearchSettlements
+            response: AddressSearchSettlements[]
         },
         getWarehouseTypes: {
             request: {},
             response: {
                 Ref: string,
                 Description: string
-            }
+            }[]
         },
         getWarehouses: {
             request: AddressGetWarehousesRequest,
-            response: AddressGetWarehousesResponse
+            response: AddressGetWarehousesResponse[]
         }
 
     },
@@ -247,10 +247,10 @@ export interface RequestTypes {
         getCounterparties: {
             request: {
                 FindByString?: string,
-                CounterpartyProperty: string,
+                CounterpartyProperty: CounterpartyProperties,
                 Page: string
             }, 
-            response: CounterpartyGetCounterpartiesResponse
+            response: CounterpartyGetCounterpartiesResponse[]
         },
         getCounterpartyAddresses: {
             request: {
@@ -260,7 +260,7 @@ export interface RequestTypes {
             response: {
                 Ref: string,
                 Description: string
-            }
+            }[]
         },
         getCounterpartyContactPersons: {
             request: {
@@ -275,7 +275,7 @@ export interface RequestTypes {
                 LastName: string,
                 FirstName: string,
                 MiddleName: string
-            }
+            }[]
         }
     },
 }
