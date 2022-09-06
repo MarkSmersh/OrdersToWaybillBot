@@ -1,5 +1,6 @@
 import sequelize from "../database";
 import { DataTypes as DT, CreationOptional, InferAttributes, InferCreationAttributes, Model, ModelDefined, Optional } from 'sequelize';
+import { CounterpartyTypes } from "../../../types/novaposhta";
 
 export class UserState extends Model<InferAttributes<UserState>, InferCreationAttributes<UserState>> {
     declare user_id: number;
@@ -29,15 +30,67 @@ export class Order extends Model<InferAttributes<Order>, InferCreationAttributes
 
 Order.init({
     id: { type: DT.INTEGER, primaryKey: true, autoIncrement: true }, 
-    order: { type: DT.STRING }, // example: 
-    orderState: { type: DT.STRING }, // "created" | "packaged" | "sended"
-    phoneNumber: { type: DT.INTEGER }, // +381234567890
-    fullName: { type: DT.STRING }, // ${SecondName} ${FirstName} ${Surname}
-    billingType: { type: DT.STRING }, // "prepaid" | "cash"
-    destination: { type: DT.STRING }, // get from novaposhta api
-    waybill: { type: DT.INTEGER }, // get from novaposhta api
-    createdBy: { type: DT.INTEGER }, // chat_id
-    createdAt: { type: DT.DATE }, // 
-    updatedBy: { type: DT.INTEGER }, // chat_id
+    order: { type: DT.STRING },
+    orderState: { type: DT.STRING },
+    phoneNumber: { type: DT.INTEGER },
+    fullName: { type: DT.STRING },
+    billingType: { type: DT.STRING },
+    destination: { type: DT.STRING },
+    waybill: { type: DT.INTEGER },
+    createdBy: { type: DT.INTEGER },
+    createdAt: { type: DT.DATE },
+    updatedBy: { type: DT.INTEGER },
     updatedAt: { type: DT.DATE }
 }, { tableName: 'orders', sequelize })
+
+export class Counterparty extends Model<InferAttributes<Counterparty>, InferCreationAttributes<Counterparty>> {
+    declare counterpartyProperty: string;
+    declare description: string;
+    declare ref: string;
+    declare city: string;
+    declare counterparty: string;
+    declare firstName: string;
+    declare lastName: string;
+    declare middleName: string;
+    declare ownershipFormRef: string;
+    declare ownershipFormDescription: string;
+    declare edrpou: string;
+    declare counterpartyType: CounterpartyTypes;
+}
+
+Counterparty.init({
+    counterpartyProperty: { type: new DT.STRING(36) },
+    description: { type: new DT.STRING(50) },
+    ref: { type: new DT.STRING(36), unique: true },
+    city: { type: new DT.STRING(36) },
+    counterparty: { type: new DT.STRING(36) },
+    firstName: { type: new DT.STRING(36) },
+    lastName: { type: new DT.STRING(36) },
+    middleName: { type: new DT.STRING(36) },
+    ownershipFormRef: { type: new DT.STRING(36) },
+    ownershipFormDescription: { type: new DT.STRING(36) },
+    edrpou: { type: new DT.STRING(36) },
+    counterpartyType: { type: new DT.STRING(36) },
+}, { tableName: "counterparties", sequelize })
+
+export class CounterpartyContactPersons extends Model<InferAttributes<CounterpartyContactPersons>, InferCreationAttributes<CounterpartyContactPersons>> {
+    declare refCounterparty: string;
+    declare description: string;
+    declare ref: string;
+    declare phones: string;
+    declare email: string;
+    declare lastName: string;
+    declare firstName: string;
+    declare middleName: string;
+}
+
+CounterpartyContactPersons.init({
+    refCounterparty: { type: new DT.STRING(50) },
+    description: { type: new DT.STRING(50) },
+    ref: { type: new DT.STRING(36), unique: true },
+    phones: { type: new DT.STRING(36) },
+    email: { type: new DT.STRING(36) },
+    lastName: { type: new DT.STRING(36) },
+    firstName: { type: new DT.STRING(36) },
+    middleName: { type: new DT.STRING(36) }
+}, { tableName: "counterparties_contact_persons", sequelize })
