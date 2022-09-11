@@ -1,36 +1,42 @@
-import { Update } from "../../../types/telegram";
-import { Client } from "../client/client";
-import { SlashCommands } from "../../../types/telegram";
-import { startGreetings, helpMessage, pingCalculation, unknownCommand } from "../processors/slashCommands";
+import { startGreetings, helpMessage, pingCalculation, unknownCommand } from "../processors/commands";
+import { EventModel } from "./stateFilter";
 
-export const stateConfig: Record<statesList, MapModel> = {
-    "default": {
-        "commands": {
-            "/start": startGreetings,
-            "/ping": pingCalculation,
-            "/help": helpMessage,
-            "default": unknownCommand
+import { CallbackAnswer } from "../processors/callbacks";
+import { MessageEcho } from "../processors/messages";
+
+export const stateConfig: Record<string, EventModel[]> = {
+    default: [
+        {
+            type: "command",
+            data: "/start",
+            function: startGreetings
+        },
+        {
+            type: "command",
+            data: "/help",
+            function: helpMessage
+        },
+        {
+            type: "command",
+            data: "/ping",
+            function: pingCalculation
+        },
+        {
+            type: "command",
+            data: "default",
+            function: unknownCommand
         }
-    },
-    "start": {
-        "message": {
-            "default": pingCalculation
+    ],
+    start: [
+        {
+            type: "callback",
+            data: "default",
+            function: CallbackAnswer
+        },
+        {
+            type: "message",
+            data: "default",
+            function: MessageEcho
         }
-    }
+    ]
 }
-
-interface MapModel {
-    commands?: {
-        [key in SlashCommands | "default"]?: functionModel
-    }
-    callback?: {
-        [key in string | "default"]?: functionModel
-    }
-    message?: {
-        [key in string | "default"]?: functionModel
-    }
-}
-
-type functionModel = (client: Client, event: Update) => statesList | Promise<statesList> | void | Promise<void>;
-
-export type statesList = "start" | "default";

@@ -1,10 +1,11 @@
 import sequelize from "../database";
-import { DataTypes as DT, CreationOptional, InferAttributes, InferCreationAttributes, Model, ModelDefined, Optional } from 'sequelize';
+import { DataTypes as DT, CreationOptional, InferAttributes, InferCreationAttributes, Model } from 'sequelize';
 import { CounterpartyTypes } from "../../../types/novaposhta";
+import { StatesList } from "../../telegram/utils/stateFilter";
 
 export class UserState extends Model<InferAttributes<UserState>, InferCreationAttributes<UserState>> {
     declare user_id: number;
-    declare state: string;
+    declare state: StatesList;
 }
 
 UserState.init({

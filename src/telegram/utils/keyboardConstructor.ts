@@ -1,4 +1,5 @@
 import { InlineKeyboardButton, InlineKeyboardMarkup, LoginUrl } from "../../../types/telegram";
+import { CallbackData } from "./stateFilter";
 
 export function InlineMarkupConstructor (...inlineButtons: InlineKeyboardButton[][]): string {
     let inlineKeyboard: InlineKeyboardMarkup = {
@@ -7,7 +8,7 @@ export function InlineMarkupConstructor (...inlineButtons: InlineKeyboardButton[
     return JSON.stringify(inlineKeyboard);
 }
 
-export function InlineButtonConstructor (text: string, callbackData: string, url?: string, loginUrl?: LoginUrl): InlineKeyboardButton {
+export function InlineButtonConstructor (text: string, callbackData: CallbackData, url?: string, loginUrl?: LoginUrl): InlineKeyboardButton {
     return {
         text: text,
         callback_data: callbackData,
