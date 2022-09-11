@@ -3,7 +3,7 @@ import { Update } from "../../../types/telegram";
 import { InlineButtonConstructor as IBC,
          InlineMarkupConstructor as IMC } from "../utils/keyboardConstructor";
 import { UserState } from "../../database/models/models";
-import { StatesList } from "../utils/stateFilter";
+import { StatesList } from "../utils/stateConfig";
 import NovaposhtaClient from "../../novaposhta/client/NovaposhtaClient";
 
 export async function startGreetings(client: Client, event: Update): Promise<StatesList> {

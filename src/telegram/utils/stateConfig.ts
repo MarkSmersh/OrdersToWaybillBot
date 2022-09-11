@@ -2,10 +2,10 @@ import { startGreetings, helpMessage, pingCalculation, unknownCommand } from "..
 import { EventModel } from "./stateFilter";
 
 import { CallbackAnswer } from "../processors/callbacks";
-import { MessageEcho } from "../processors/messages";
+import { MessageEcho, MessageTest, MessageUntest } from "../processors/messages";
 
-export const stateConfig: Record<string, EventModel[]> = {
-    default: [
+export const stateConfig: Record<StatesList, EventModel[]> = {
+    "default": [
         {
             type: "command",
             data: "/start",
@@ -27,7 +27,7 @@ export const stateConfig: Record<string, EventModel[]> = {
             function: unknownCommand
         }
     ],
-    start: [
+    "start": [
         {
             type: "callback",
             data: "default",
@@ -35,8 +35,22 @@ export const stateConfig: Record<string, EventModel[]> = {
         },
         {
             type: "message",
+            data: "test",
+            function: MessageTest
+        },
+        {
+            type: "message",
             data: "default",
             function: MessageEcho
         }
+    ],
+    "test": [
+        {
+            type: "message",
+            data: "untest",
+            function: MessageUntest
+        }
     ]
 }
+
+export type StatesList = "default" | "start" | "test";

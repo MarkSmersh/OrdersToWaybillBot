@@ -1,8 +1,9 @@
 import { Client } from "./client/client";
 import { Update } from "../../types/telegram";
-import { StateFilter, FunctionReturn, StatesList, MessageData, CallbackData } from "./utils/stateFilter";
+import { StateFilter, FunctionReturn } from "./utils/stateFilter";
+import { StatesList } from "./utils/stateConfig";
 import { UserState } from "../database/models/models";
-import { SlashCommands } from "../../types/telegram";
+import { SlashCommands, MessageData, CallbackData } from "../../types/telegram";
 
 export = async (client: Client, event: Update) => {
     let newState = await stateHandler(client, event)

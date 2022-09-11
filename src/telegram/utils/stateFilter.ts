@@ -1,7 +1,7 @@
 import { Update } from "../../../types/telegram";
 import { Client } from "../client/client";
-import { SlashCommands } from "../../../types/telegram";
-import { stateConfig } from "./stateConfig";
+import { SlashCommands, MessageData, CallbackData } from "../../../types/telegram";
+import { stateConfig, StatesList } from "./stateConfig";
 
 export async function StateFilter
 <
@@ -21,7 +21,6 @@ export async function StateFilter
             break;
         }
     }
-    
     if (isFound) {
         return newState
     } else {
@@ -43,9 +42,5 @@ interface EventTypeModel {
     message: MessageData
 }
 
-export type CallbackData = "1" | "2" | "3" | "4"; 
-export type MessageData = "test"; 
-
 type FunctionModel = (client: Client, event: Update) => Promise<FunctionReturn>;
 export type FunctionReturn = StatesList | void;
-export type StatesList = keyof typeof stateConfig;

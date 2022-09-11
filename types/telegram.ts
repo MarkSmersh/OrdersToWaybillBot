@@ -188,5 +188,7 @@ export interface RequestTypes {
 };
 
 export type SlashCommands = "/start" | "/help" | "/ping";
+export type CallbackData = "1" | "2" | "3" | "4"; 
+export type MessageData = "test" | "untest"; 
 
 //#endregion

@@ -1,5 +1,5 @@
 import { InlineKeyboardButton, InlineKeyboardMarkup, LoginUrl } from "../../../types/telegram";
-import { CallbackData } from "./stateFilter";
+import { CallbackData } from "../../../types/telegram";
 
 export function InlineMarkupConstructor (...inlineButtons: InlineKeyboardButton[][]): string {
     let inlineKeyboard: InlineKeyboardMarkup = {
