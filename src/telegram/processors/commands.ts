@@ -1,12 +1,12 @@
 import { Client } from "../client/client";
-import { Update, SlashCommands } from "../../../types/telegram";
+import { Update } from "../../../types/telegram";
 import { InlineButtonConstructor as IBC,
          InlineMarkupConstructor as IMC } from "../utils/keyboardConstructor";
 import { UserState } from "../../database/models/models";
-import { statesList } from "../utils/stateConfig";
+import { StatesList } from "../utils/stateFilter";
 import NovaposhtaClient from "../../novaposhta/client/NovaposhtaClient";
 
-export async function startGreetings(client: Client, event: Update): Promise<statesList> {
+export async function startGreetings(client: Client, event: Update): Promise<StatesList> {
     await client.request("sendMessage", { chat_id: event.message?.chat.id, 
         text: "Start had detected", 
         reply_markup: IMC (
@@ -31,8 +31,6 @@ export async function startGreetings(client: Client, event: Update): Promise<sta
         Limit: "0",
         Page: "0"
     });
-
-    console.log(data);
 
     return "start";
 }
