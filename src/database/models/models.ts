@@ -19,7 +19,9 @@ export class Order extends Model<InferAttributes<Order>, InferCreationAttributes
     declare order: string;
     declare orderState: "created" | "packaged" | "sended";
     declare phoneNumber: number;
-    declare fullName: string;
+    declare firstName: string;
+    declare lastName: string;
+    declare middleName: string;
     declare billingType: "prepaid" | "cash";
     declare destination: string;
     declare waybill: string;
@@ -34,7 +36,9 @@ Order.init({
     order: { type: DT.STRING },
     orderState: { type: DT.STRING },
     phoneNumber: { type: DT.INTEGER },
-    fullName: { type: DT.STRING },
+    lastName: { type: DT.STRING },
+    firstName: { type: DT.STRING },
+    middleName: { type: DT.STRING },
     billingType: { type: DT.STRING },
     destination: { type: DT.STRING },
     waybill: { type: DT.INTEGER },
