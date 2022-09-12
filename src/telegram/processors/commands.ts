@@ -8,9 +8,19 @@ import { UserState, Order } from "../../database/models/models";
 import { StatesList } from "../utils/stateConfig";
 import NovaposhtaClient from "../../novaposhta/client/NovaposhtaClient";
 
-export async function startGreetings(client: Client, event: Update): Promise<StatesList> {
+import path from "path";
+import * as dotenv from "dotenv";
+dotenv.config({ path: path.resolve(__dirname + "/../../.env") });
+
+export async function startGreetings(client: Client, event: Update): Promise<StatesList | void> {
     await client.request("sendMessage", { chat_id: event.message?.chat.id, parse_mode: "MarkdownV2",
         text: `*Good ${getCurrentTimeString()}*, [${event.message?.chat.first_name}](tg://user?id=${event.message?.chat.id})`});
+
+    if (!process.env.ALLOWED_USERS?.split(" ").includes(event.message?.chat.id.toString())) {
+        await client.request("sendMessage", { chat_id: event.message?.chat.id, parse_mode: "MarkdownV2",
+            text: `Oh, seems you are not allowed to use this bot\\. If that error, send this ID: \`${event.message?.chat.id}\` to [him](tg://user?id=562140704)`});
+        return;
+    }
         
     let createdCount = 0, 
         packagedCount = 0,
@@ -39,7 +49,8 @@ export async function startGreetings(client: Client, event: Update): Promise<Sta
 
 function getCurrentTimeString () {
     let data = new Date();
-    let hour = data.getTimezoneOffset() + 3;
+    let hour = data.getUTCHours() + 3;
+    (hour > 24) ? hour - 24 : hour
 
     if (hour < 6) return "night 🌚";
     if (hour < 12) return "morning 🌞";
