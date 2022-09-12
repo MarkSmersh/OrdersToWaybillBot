@@ -39,6 +39,7 @@ export async function updateCounterpartiesContactPersons() {
         lists.forEach(async (list) => {
             await CounterpartyContactPersons.findOrCreate({ where: { ref: list.Ref }, defaults: { 
                 refCounterparty: query.ref,
+                counterpartyProperty: query.counterpartyProperty,
                 description: list.Description,
                 ref: list.Ref,
                 phones: list.Phones,

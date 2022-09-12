@@ -76,7 +76,7 @@ Counterparty.init({
 
 export class CounterpartyContactPersons extends Model<InferAttributes<CounterpartyContactPersons>, InferCreationAttributes<CounterpartyContactPersons>> {
     declare refCounterparty: string;
-    declare counterpartyProperty: CounterpartyProperties;
+    declare counterpartyProperty: string;
     declare description: string;
     declare ref: string;
     declare phones: string;
