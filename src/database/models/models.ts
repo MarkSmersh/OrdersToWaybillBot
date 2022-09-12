@@ -1,6 +1,6 @@
 import sequelize from "../database";
 import { DataTypes as DT, CreationOptional, InferAttributes, InferCreationAttributes, Model } from 'sequelize';
-import { CounterpartyTypes, CounterpartyProperties } from "../../../types/novaposhta";
+import { CounterpartyTypes, OrderStates } from "../../../types/novaposhta";
 import { StatesList } from "../../telegram/utils/stateConfig";
 
 export class UserState extends Model<InferAttributes<UserState>, InferCreationAttributes<UserState>> {
@@ -17,7 +17,7 @@ UserState.init({
 export class Order extends Model<InferAttributes<Order>, InferCreationAttributes<Order>> {
     declare id: CreationOptional<number>;
     declare order: string;
-    declare orderState: "created" | "packaged" | "sended";
+    declare orderState: OrderStates;
     declare phoneNumber: number;
     declare firstName: string;
     declare lastName: string;
