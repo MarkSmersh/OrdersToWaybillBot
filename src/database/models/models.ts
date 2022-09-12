@@ -1,6 +1,6 @@
 import sequelize from "../database";
 import { DataTypes as DT, CreationOptional, InferAttributes, InferCreationAttributes, Model } from 'sequelize';
-import { CounterpartyTypes } from "../../../types/novaposhta";
+import { CounterpartyTypes, CounterpartyProperties } from "../../../types/novaposhta";
 import { StatesList } from "../../telegram/utils/stateConfig";
 
 export class UserState extends Model<InferAttributes<UserState>, InferCreationAttributes<UserState>> {
@@ -76,6 +76,7 @@ Counterparty.init({
 
 export class CounterpartyContactPersons extends Model<InferAttributes<CounterpartyContactPersons>, InferCreationAttributes<CounterpartyContactPersons>> {
     declare refCounterparty: string;
+    declare counterpartyProperty: CounterpartyProperties;
     declare description: string;
     declare ref: string;
     declare phones: string;
@@ -87,6 +88,7 @@ export class CounterpartyContactPersons extends Model<InferAttributes<Counterpar
 
 CounterpartyContactPersons.init({
     refCounterparty: { type: new DT.STRING(50) },
+    counterpartyProperty: { type: new DT.STRING(36) },
     description: { type: new DT.STRING(50) },
     ref: { type: new DT.STRING(36), unique: true },
     phones: { type: new DT.STRING(36) },
