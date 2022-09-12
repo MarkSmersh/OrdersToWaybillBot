@@ -24,7 +24,7 @@ export class Client extends EventEmitter {
     }
 
     public async request<K extends keyof RequestTypes>(methodName: K, methodParams: RequestTypes[K]["request"] = {}): Promise<RequestTypes[K]["response"]> {  
-        let response = await axios.get(this.basicUri + this.token + "/" + methodName + "?" + this.URLSearchParamsFixed(methodParams));
+        let response = await axios.get(this.basicUri + this.token + "/" + methodName + "?" + new URLSearchParams(methodParams as Record<string, string>));
         let data: BasicResponse = await response.data;
 
         if (!data.ok) {
@@ -45,14 +45,5 @@ export class Client extends EventEmitter {
         })
 
         await this.longpoll(updates.at(-1)?.update_id);
-    }
-
-    private URLSearchParamsFixed (init: any): string { // if someone has idea how to solve any to sth better write to issues
-        var str = [];
-        for (var p in init)
-            if (init.hasOwnProperty(p)) {
-                str.push(encodeURIComponent(p) + "=" + encodeURIComponent(init[p]));
-            }
-        return str.join("&");
     }
 }
