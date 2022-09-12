@@ -20,7 +20,8 @@ declare module 'node:events' {
 export interface BasicResponse {
     ok: boolean,
     result: any,
-    error_code?: number
+    error_code?: number,
+    description?: string
 };
 
 export interface Message {

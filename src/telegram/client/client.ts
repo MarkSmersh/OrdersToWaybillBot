@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError, AxiosResponse } from "axios";
 import { ResponseEvents, RequestTypes, Update, BasicResponse } from "../../../types/telegram";
 import { EventEmitter } from "node:events";
 
@@ -24,12 +24,22 @@ export class Client extends EventEmitter {
     }
 
     public async request<K extends keyof RequestTypes>(methodName: K, methodParams: RequestTypes[K]["request"] = {}): Promise<RequestTypes[K]["response"]> {  
-        let response = await axios.get(this.basicUri + this.token + "/" + methodName + "?" + new URLSearchParams(methodParams as Record<string, string>));
-        let data: BasicResponse = await response.data;
+        let response: AxiosResponse<any, any> = await new Promise (async (resolve) => {
+            let request = axios.get(
+                this.basicUri + this.token + "/" + methodName + "?" + new URLSearchParams(methodParams as Record<string, string>)
+            );
 
-        if (!data.ok) {
-            throw new Error(`Bad response from telegram api`);
-        }
+            request.catch((e: AxiosError) => {
+                let data = e.response?.data as BasicResponse;
+                throw new Error(`Bad response from telegram api:\n${e.message}\n${data.description}`);
+            })
+
+            request.then((e) => {
+                resolve(e);
+            })
+        })
+
+        let data: BasicResponse = await response.data;
 
         let result: RequestTypes[K]["response"] = data.result;
             
