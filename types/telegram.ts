@@ -63,6 +63,32 @@ export interface InlineKeyboardButton {
     pay?: boolean
 };
 
+export interface ReplyKeyboardMarkup {
+    keyboard: ReplyKeyboardButton[][],
+    resize_keyboard?: boolean,
+    one_time_keyboard?: boolean,
+    input_field_placeholder?: string,
+    selective?: boolean
+}
+
+export interface ReplyKeyboardRemove {
+    remove_keyboard: true,
+    selective?: boolean
+}
+
+export interface ForceReply {
+    force_reply: true,
+    input_field_placeholder?: string,
+    selective?: boolean
+}
+
+export interface ReplyKeyboardButton {
+    text: string,
+    request_contact?: boolean,
+    request_location?: boolean
+    // https://core.telegram.org/bots/api#keyboardbutton
+}
+
 export interface LoginUrl {
     url: string,
     forward_text?: string,
