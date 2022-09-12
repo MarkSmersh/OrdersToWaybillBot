@@ -30,7 +30,7 @@ export function ReplyMarkupConstructor (resizeKeyboard?: boolean, oneTimeKeyboar
     return JSON.stringify(replyKeyboard);
 }
 
-export function ReplyButtonConstructor (text: string, requestContact: boolean, requestLocation: boolean): ReplyKeyboardButton {
+export function ReplyButtonConstructor (text: string, requestContact?: boolean, requestLocation?: boolean): ReplyKeyboardButton {
     return {
         text: text,
         request_contact: requestContact,
@@ -46,7 +46,7 @@ export function ReplyRemoveConstructor (selective?: boolean): string { // ...rep
     return JSON.stringify(replyRemove);
 }
 
-export function ForceReplyConstructor (inputFieldPlaceholder: string, selective?: boolean): string { // ...replyButtons: ReplyKeyboardButton[][], 
+export function ForceReplyConstructor (inputFieldPlaceholder?: string, selective?: boolean): string { // ...replyButtons: ReplyKeyboardButton[][], 
     let forceReply: ForceReply = {
         force_reply: true,
         input_field_placeholder: inputFieldPlaceholder,
