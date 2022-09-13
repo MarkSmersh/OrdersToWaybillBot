@@ -4,9 +4,8 @@ import { InlineButtonConstructor as IBC,
          InlineMarkupConstructor as IMC,
          ReplyMarkupConstructor as RMC,
          ReplyButtonConstructor as RBC  } from "../utils/keyboardConstructor";
-import { UserState, Order } from "../../database/models/models";
+import { Order } from "../../database/models/models";
 import { StatesList } from "../utils/stateConfig";
-import NovaposhtaClient from "../../novaposhta/client/NovaposhtaClient";
 
 import path from "path";
 import * as dotenv from "dotenv";
@@ -42,9 +41,19 @@ export async function startGreetings(client: Client, event: Update): Promise<Sta
 🧾 Created: \`${createdCount}\`
 📦 Packaged: \`${packagedCount}\`
 📮 Prepared: \`${preparedCount}\`
-📨 Sended: \`${sendedCount}\`\n`});
-
-    return "start";
+📨 Sended: \`${sendedCount}\`\n`,
+        reply_markup: RMC(true, false, "", false,
+            [
+                RBC("📝 Create order")
+            ],
+            [
+                RBC("📦 Select packaged"), RBC("📮 Create waybills")
+            ],
+            [
+                RBC("📑 Orders list")
+            ]
+        )
+    });
 }
 
 function getCurrentTimeString () {

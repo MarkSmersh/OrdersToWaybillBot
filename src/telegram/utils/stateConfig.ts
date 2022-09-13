@@ -23,10 +23,7 @@ export const stateConfig: Record<StatesList, EventModel[]> = {
             data: "default",
             function: unknownCommand
         }
-    ],
-    "start": [
-        
     ]
 }
 
-export type StatesList = "default" | "start";
+export type StatesList = "default";

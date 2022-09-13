@@ -53,7 +53,7 @@ export interface InlineKeyboardMarkup {
 };
 
 export interface InlineKeyboardButton {
-    text: string,
+    text: CallbackData,
     url?: string,
     callback_data?: string,
     //web_app,
@@ -84,7 +84,7 @@ export interface ForceReply {
 }
 
 export interface ReplyKeyboardButton {
-    text: string,
+    text: MessageData,
     request_contact?: boolean,
     request_location?: boolean
     // https://core.telegram.org/bots/api#keyboardbutton
@@ -216,6 +216,6 @@ export interface RequestTypes {
 
 export type SlashCommands = "/start" | "/help" | "/ping";
 export type CallbackData = "1" | "2" | "3" | "4"; 
-export type MessageData = "test" | "untest"; 
+export type MessageData = "📝 Create order" | "📦 Select packaged" | "📮 Create waybills" | "📑 Orders list"; 
 
 //#endregion

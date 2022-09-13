@@ -1,7 +1,7 @@
 import { InlineKeyboardButton, InlineKeyboardMarkup, 
          ReplyKeyboardButton, ReplyKeyboardMarkup,
          ReplyKeyboardRemove, ForceReply,
-         LoginUrl } from "../../../types/telegram";
+         LoginUrl, MessageData} from "../../../types/telegram";
 import { CallbackData } from "../../../types/telegram";
 
 export function InlineMarkupConstructor (...inlineButtons: InlineKeyboardButton[][]): string {
@@ -11,7 +11,7 @@ export function InlineMarkupConstructor (...inlineButtons: InlineKeyboardButton[
     return JSON.stringify(inlineKeyboard);
 }
 
-export function InlineButtonConstructor (text: string, callbackData: CallbackData, url?: string, loginUrl?: LoginUrl): InlineKeyboardButton {
+export function InlineButtonConstructor (text: CallbackData, callbackData: CallbackData, url?: string, loginUrl?: LoginUrl): InlineKeyboardButton {
     return {
         text: text,
         callback_data: callbackData,
@@ -30,7 +30,7 @@ export function ReplyMarkupConstructor (resizeKeyboard?: boolean, oneTimeKeyboar
     return JSON.stringify(replyKeyboard);
 }
 
-export function ReplyButtonConstructor (text: string, requestContact?: boolean, requestLocation?: boolean): ReplyKeyboardButton {
+export function ReplyButtonConstructor (text: MessageData, requestContact?: boolean, requestLocation?: boolean): ReplyKeyboardButton {
     return {
         text: text,
         request_contact: requestContact,
