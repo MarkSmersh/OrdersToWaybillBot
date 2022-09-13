@@ -1,5 +1,6 @@
 import { type } from "os";
 import { startGreetings, helpMessage, pingCalculation, unknownCommand } from "../processors/commands";
+import { CreateOrder } from "../processors/messages";
 import { EventModel } from "./stateFilter";
 
 export const stateConfig: Record<StatesList, EventModel[]> = {
@@ -29,9 +30,9 @@ export const stateConfig: Record<StatesList, EventModel[]> = {
         {
             type: "message",
             data: "📝 Create order",
-            function: ""
+            function: CreateOrder
         }
-    ]
+    ],
 }
 
 export type StatesList = "default" | "main";

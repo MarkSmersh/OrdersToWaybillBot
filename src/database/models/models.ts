@@ -41,6 +41,7 @@ Order.init({
     firstName: { type: DT.STRING },
     middleName: { type: DT.STRING },
     billingType: { type: DT.STRING },
+    price: { type: DT.STRING },
     destination: { type: DT.STRING },
     waybill: { type: DT.INTEGER },
     createdBy: { type: DT.INTEGER },
