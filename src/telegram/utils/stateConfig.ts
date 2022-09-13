@@ -1,3 +1,4 @@
+import { type } from "os";
 import { startGreetings, helpMessage, pingCalculation, unknownCommand } from "../processors/commands";
 import { EventModel } from "./stateFilter";
 
@@ -23,7 +24,14 @@ export const stateConfig: Record<StatesList, EventModel[]> = {
             data: "default",
             function: unknownCommand
         }
+    ],
+    "main": [
+        {
+            type: "message",
+            data: "📝 Create order",
+            function: ""
+        }
     ]
 }
 
-export type StatesList = "default";
+export type StatesList = "default" | "main";

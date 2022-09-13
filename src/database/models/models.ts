@@ -1,6 +1,6 @@
 import sequelize from "../database";
 import { DataTypes as DT, CreationOptional, InferAttributes, InferCreationAttributes, Model } from 'sequelize';
-import { CounterpartyTypes, OrderStates } from "../../../types/novaposhta";
+import { CounterpartyTypes, OrderStates, PaymentMethods } from "../../../types/novaposhta";
 import { StatesList } from "../../telegram/utils/stateConfig";
 
 export class UserState extends Model<InferAttributes<UserState>, InferCreationAttributes<UserState>> {
@@ -22,7 +22,8 @@ export class Order extends Model<InferAttributes<Order>, InferCreationAttributes
     declare firstName: string;
     declare lastName: string;
     declare middleName: string;
-    declare billingType: "prepaid" | "cash";
+    declare billingType: PaymentMethods;
+    declare price: number;
     declare destination: string;
     declare waybill: string;
     declare createdBy: number;
