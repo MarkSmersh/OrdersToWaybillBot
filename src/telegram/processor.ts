@@ -6,7 +6,10 @@ import { UserState } from "../database/models/models";
 import { SlashCommands, MessageData, CallbackData } from "../../types/telegram";
 
 export = async (client: Client, event: Update) => {
-    let newState = await stateHandler(client, event)
+    UserState.findOrCreate(({ where: { user_id: event.message?.chat.id },
+        defaults: { user_id: event.message?.chat.id, state: "default" } }))
+        
+    let newState = await stateHandler(client, event);
 
     if (newState) {
         UserState.update({ state: newState },

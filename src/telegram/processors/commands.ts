@@ -54,6 +54,8 @@ export async function startGreetings(client: Client, event: Update): Promise<Sta
             ]
         )
     });
+
+    return "default";
 }
 
 function getCurrentTimeString () {
