@@ -7,15 +7,13 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch Program",
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
+            "name": "Build Project",
             "program": "${workspaceFolder}/src/index.ts",
-            "outFiles": [
-                "${workspaceFolder}/**/*.js"
-            ],
-            "outputCapture": "std"
+            "preLaunchTask": "npm: ci-build",
+            "sourceMaps": true,
+            "smartStep": true,
+            "internalConsoleOptions": "openOnSessionStart",
+            "outFiles": ["${workspaceFolder}/dist/**/*.js"]
         }
     ]
 }
