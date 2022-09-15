@@ -53,9 +53,9 @@ export interface InlineKeyboardMarkup {
 };
 
 export interface InlineKeyboardButton {
-    text: CallbackData,
+    text: string,
     url?: string,
-    callback_data?: string,
+    callback_data?: CallbackData,
     //web_app,
     login_url?: LoginUrl,
     switch_inline_query?: string,
