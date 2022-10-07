@@ -16,17 +16,17 @@ UserState.init({
 
 export class Order extends Model<InferAttributes<Order>, InferCreationAttributes<Order>> {
     declare id: CreationOptional<number>;
-    declare order: string;
+    declare order: string | null;
     declare orderState: OrderStates;
-    declare phoneNumber: number;
-    declare firstName: string;
-    declare lastName: string;
-    declare middleName: string;
-    declare billingType: PaymentMethods;
-    declare price: number;
-    declare destination: string;
-    declare waybill: string;
-    declare createdBy: number;
+    declare phoneNumber: number | null;
+    declare firstName: string | null;
+    declare lastName: string | null;
+    declare middleName: string | null;
+    declare billingType: PaymentMethods | null;
+    declare price: number | null;
+    declare destination: string | null;
+    declare waybill: string | null;
+    declare createdBy: number;  
     declare createdAt: CreationOptional<Date>;
     declare updatedBy: number;
     declare updatedAt: CreationOptional<Date>;
@@ -34,7 +34,7 @@ export class Order extends Model<InferAttributes<Order>, InferCreationAttributes
 
 Order.init({
     id: { type: DT.INTEGER, primaryKey: true, autoIncrement: true }, 
-    order: { type: DT.STRING },
+    order: { type: DT.STRING  },
     orderState: { type: DT.STRING },
     phoneNumber: { type: DT.INTEGER },
     lastName: { type: DT.STRING },

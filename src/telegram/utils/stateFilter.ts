@@ -1,4 +1,4 @@
-import { Update } from "../../../types/telegram";
+import { CallbackQuery, Message, Update } from "../../../types/telegram";
 import { Client } from "../client/client";
 import { SlashCommands, MessageData, CallbackData } from "../../../types/telegram";
 import { stateConfig, StatesList } from "./stateConfig";
@@ -42,5 +42,6 @@ interface EventTypeModel {
     message: MessageData
 }
 
-type FunctionModel = (client: Client, event: Update) => Promise<FunctionReturn>;
+type FunctionModel = (client: Client, event: any) => Promise<FunctionReturn>
+
 export type FunctionReturn = StatesList | void;

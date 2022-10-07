@@ -1,5 +1,5 @@
 import { Client } from "../client/client";
-import { Update } from "../../../types/telegram";
+import { Message } from "../../../types/telegram";
 import { InlineButtonConstructor as IBC,
          InlineMarkupConstructor as IMC,
          ReplyMarkupConstructor as RMC,
@@ -11,13 +11,13 @@ import path from "path";
 import * as dotenv from "dotenv";
 dotenv.config({ path: path.resolve(__dirname + "/../../.env") });
 
-export async function startGreetings(client: Client, event: Update): Promise<StatesList | void> {
-    await client.request("sendMessage", { chat_id: event.message?.chat.id, parse_mode: "MarkdownV2",
-        text: `*Good ${getCurrentTimeString()}*, [${event.message?.chat.first_name}](tg://user?id=${event.message?.chat.id})`});
+export async function startGreetings(client: Client, event: Message): Promise<StatesList | void> {
+    await client.request("sendMessage", { chat_id: event.chat.id, parse_mode: "MarkdownV2",
+        text: `*Good ${getCurrentTimeString()}*, [${event.chat.first_name}](tg://user?id=${event.chat.id})`});
 
-    if (!process.env.ALLOWED_USERS?.split(" ").includes(event.message?.chat.id.toString())) {
-        await client.request("sendMessage", { chat_id: event.message?.chat.id, parse_mode: "MarkdownV2",
-            text: `Oh, seems you are not allowed to use this bot\\. If that error, send this ID: \`${event.message?.chat.id}\` to [him](tg://user?id=562140704)`});
+    if (!process.env.ALLOWED_USERS?.split(" ").includes(event.chat.id.toString())) {
+        await client.request("sendMessage", { chat_id: event.chat.id, parse_mode: "MarkdownV2",
+            text: `Oh, seems you are not allowed to use this bot\\. If that error, send this ID: \`${event.chat.id}\` to [him](tg://user?id=562140704)`});
         return;
     }
         
@@ -36,26 +36,26 @@ export async function startGreetings(client: Client, event: Update): Promise<Sta
         }
     })
     
-    await client.request("sendMessage", { chat_id: event.message?.chat.id, parse_mode: "MarkdownV2",
+    await client.request("sendMessage", { chat_id: event.chat.id, parse_mode: "MarkdownV2",
         text: `*THE LIST OF CURRENT ORDERS*\n
 🧾 Created: \`${createdCount}\`
 📦 Packaged: \`${packagedCount}\`
 📮 Prepared: \`${preparedCount}\`
 📨 Sended: \`${sendedCount}\`\n`,
-        reply_markup: RMC(true, false, "", false,
+        reply_markup: RMC({ resizeKeyboard: true, oneTimeKeyboard: true },
             [
-                RBC("📝 Create order")
+                RBC({ text: "📝 Create order" })
             ],
             [
-                RBC("📦 Select packaged"), RBC("📮 Create waybills")
+                RBC({ text: "📦 Select packaged" }), RBC({ text: "📮 Create waybills" })
             ],
             [
-                RBC("📑 Orders list")
+                RBC({ text: "📑 Orders list" })
             ]
         )
     });
 
-    return "default";
+    return "menu";
 }
 
 function getCurrentTimeString () {
@@ -69,24 +69,36 @@ function getCurrentTimeString () {
     if (hour < 24) return "evening 🌛";
 }
 
-export async function helpMessage(client: Client, event: Update) {
-    await client.request("sendMessage", { chat_id: event.message?.chat.id, parse_mode: "MarkdownV2",
-        text: `*Greetings*, [${event.message?.chat.first_name}](tg://user?id=${event.message?.chat.id})`});
+export async function helpMessage(client: Client, event: Message) {
+    await client.request("sendMessage", { chat_id: event.chat.id, parse_mode: "MarkdownV2",
+        text: `*Choose with what you need help below:*`,
+        reply_markup: IMC(
+            [
+                IBC({ text: "Show product info", callbackData: "show_product_info" })
+            ],
+            [
+                IBC({ text: "Write to admin", url: `tg://user?id=${process.env.ADMIN_ID as string}`})
+            ],
+            [
+                IBC({ text: "Delete", callbackData: "delete_message" })
+            ]
+        )
+    });
 }
 
-export async function pingCalculation(client: Client, event: Update) {
+export async function pingCalculation(client: Client, event: Message) {
     let timeBefore = Date.now();
 
-    let message = await client.request("sendMessage", { chat_id: event.message?.chat.id,
+    let message = await client.request("sendMessage", { chat_id: event.chat.id,
         text: `Ping: calculating...`});
 
     let timeAfter = Date.now();
 
-    await client.request("editMessageText", { chat_id: event.message?.chat.id, message_id: message.message_id, 
+    await client.request("editMessageText", { chat_id: event.chat.id, message_id: message.message_id, 
         text: `Ping: ${timeAfter - timeBefore}ms`})
 }
 
-export async function unknownCommand(client: Client, event: Update) {
-    await client.request("sendMessage", { chat_id: event.message?.chat.id,
+export async function unknownCommand(client: Client, event: Message) {
+    await client.request("sendMessage", { chat_id: event.chat.id,
         text: `There\`s no such command. Use Menu to get full list of available commands`});
 }

@@ -183,7 +183,7 @@ export type CounterpartyProperties = "Sender" | "Recipient" | "ThirdPerson";
 export type ServiceTypes = "DoorsDoors" | "DoorsWarehouse" | "WarehouseWarehouse" | "WarehouseDoors";
 export type PaymentMethods = "Cash" | "NonCash";
 export type CounterpartyTypes = "Recipient" | string;
-export type OrderStates = "created" | "packaged" | "prepared" | "sended";
+export type OrderStates = "unready" | "created" | "packaged" | "prepared" | "sended";
 
 interface Dimensions {
     Width: number,
@@ -280,4 +280,3 @@ export interface RequestTypes {
         }
     },
 }
-

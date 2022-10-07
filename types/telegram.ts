@@ -1,3 +1,5 @@
+import { ProductInfo } from "./order";
+
 declare module 'node:events' {
     class EventEmitter {
       // Add type overloads for client events.
@@ -146,7 +148,7 @@ export interface CallbackQuery {
     message?: Message,
     inline_message_id?: string,
     chat_instance: string,
-    data?: string,
+    data?: CallbackData,
     game_short_name?: string
 }
 
@@ -200,7 +202,7 @@ export interface RequestTypes {
         {
             chat_id: number | undefined, message_id: number, text: string, inline_message_id?: string, 
             parse_mode?: ParseModes, entites?: MessageEntity[], disable_web_page_preview?: boolean,
-            reply_markup?: InlineKeyboardMarkup 
+            reply_markup?: string 
         },
         response: Message 
     },
@@ -211,11 +213,17 @@ export interface RequestTypes {
             cache_time?: number
         },
         response: true
+    },
+    deleteMessage: {
+        request: {
+            chat_id: number | string, message_id: string
+        },
+        response: true
     }
 };
 
 export type SlashCommands = "/start" | "/help" | "/ping";
-export type CallbackData = "1" | "2" | "3" | "4"; 
+export type CallbackData = typeof ProductInfo[number]["shortName"] | "show_product_info" | "delete_message" | "delete_unready" | "edit_unready" | "productValue" | "productValue_100" | "productValue_250" | "productValue_500" | "productValue_750" | "productValue_1000"; 
 export type MessageData = "📝 Create order" | "📦 Select packaged" | "📮 Create waybills" | "📑 Orders list"; 
 
 //#endregion
