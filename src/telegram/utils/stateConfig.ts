@@ -1,6 +1,13 @@
-import { type } from "os";
-import { chooseCountOfProduct, createOrderRow, deleteMessageFromCallback, solveUnreadyOrder, typeOrderInfoTable } from "../processors/callbacks";
-import { startGreetings, helpMessage, pingCalculation, unknownCommand } from "../processors/commands";
+import { chooseCountOfProduct,
+         createOrderRow, 
+         deleteMessageFromCallback, 
+         solveUnreadyOrder, 
+         typeOrderInfoTable } from "../processors/callbacks";
+import { startGreetings, 
+         helpMessage, 
+         pingCalculation, 
+         unknownCommand,
+         testCommand } from "../processors/commands";
 import { CreateOrder } from "../processors/messages";
 import { EventModel } from "./stateFilter";
 
@@ -20,6 +27,11 @@ export const stateConfig: Record<StatesList, EventModel[]> = {
             type: "command",
             data: "/ping",
             function: pingCalculation
+        },
+        {
+            type: "command",
+            data: "/test",
+            function: testCommand
         },
         {
             type: "command",

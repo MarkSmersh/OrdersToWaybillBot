@@ -58,7 +58,7 @@ export interface InlineKeyboardButton {
     text: string,
     url?: string,
     callback_data?: CallbackData,
-    //web_app,
+    web_app?: WebAppInfo,
     login_url?: LoginUrl,
     switch_inline_query?: string,
     switch_inline_query_current_chat?: string,
@@ -152,6 +152,10 @@ export interface CallbackQuery {
     game_short_name?: string
 }
 
+export interface WebAppInfo {
+    url: string
+}
+
 //#endregion
 
 //#region EntitiesTypes
@@ -222,7 +226,7 @@ export interface RequestTypes {
     }
 };
 
-export type SlashCommands = "/start" | "/help" | "/ping";
+export type SlashCommands = "/start" | "/help" | "/ping" | "/test";
 export type CallbackData = typeof ProductInfo[number]["shortName"] | "show_product_info" | "delete_message" | "delete_unready" | "edit_unready" | "productValue" | "productValue_100" | "productValue_250" | "productValue_500" | "productValue_750" | "productValue_1000"; 
 export type MessageData = "📝 Create order" | "📦 Select packaged" | "📮 Create waybills" | "📑 Orders list"; 
 

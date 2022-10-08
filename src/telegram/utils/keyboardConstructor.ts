@@ -1,7 +1,7 @@
 import { InlineKeyboardButton, InlineKeyboardMarkup, 
          ReplyKeyboardButton, ReplyKeyboardMarkup,
          ReplyKeyboardRemove, ForceReply,
-         LoginUrl, MessageData} from "../../../types/telegram";
+         LoginUrl, MessageData, WebAppInfo} from "../../../types/telegram";
 import { CallbackData } from "../../../types/telegram";
 
 export function InlineMarkupConstructor (...inlineButtons: InlineKeyboardButton[][]): string {
@@ -11,11 +11,12 @@ export function InlineMarkupConstructor (...inlineButtons: InlineKeyboardButton[
     return JSON.stringify(inlineKeyboard);
 }
 
-export function InlineButtonConstructor (config: { text: string, callbackData?: CallbackData, url?: string, loginUrl?: LoginUrl }): InlineKeyboardButton {
+export function InlineButtonConstructor (config: { text: string, callbackData?: CallbackData, webApp?: WebAppInfo, url?: string, loginUrl?: LoginUrl }): InlineKeyboardButton {
     return {
         text: config.text,
         callback_data: config.callbackData,
-        url: config.url
+        url: config.url,
+        web_app: config.webApp
     }
 }
 
