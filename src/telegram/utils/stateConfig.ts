@@ -1,14 +1,4 @@
-import { chooseCountOfProduct,
-         createOrderRow, 
-         deleteMessageFromCallback, 
-         solveUnreadyOrder, 
-         typeOrderInfoTable } from "../processors/callbacks";
-import { startGreetings, 
-         helpMessage, 
-         pingCalculation, 
-         unknownCommand,
-         testCommand } from "../processors/commands";
-import { CreateOrder } from "../processors/messages";
+import * as f from "../processors/index"
 import { EventModel } from "./stateFilter";
 
 export const stateConfig: Record<StatesList, EventModel[]> = {
@@ -16,79 +6,41 @@ export const stateConfig: Record<StatesList, EventModel[]> = {
         {
             type: "command",
             data: "/start",
-            function: startGreetings
+            function: f.Start
         },
         {
             type: "command",
             data: "/help",
-            function: helpMessage
+            function: f.Help
         },
         {
             type: "command",
             data: "/ping",
-            function: pingCalculation
+            function: f.Ping
         },
         {
             type: "command",
             data: "/test",
-            function: testCommand
+            function: f.Test
         },
         {
             type: "command",
             data: "default",
-            function: unknownCommand
-        },
-        {
-            type: "callback",
-            data: "delete_message",
-            function: deleteMessageFromCallback
+            function: f.Unknown
         },
         {
             type: "callback",
             data: "show_product_info",
-            function: typeOrderInfoTable
+            function: f.TypeOrderInfoTable
         }
     ],
     "menu": [
         {
             type: "message",
             data: "📝 Create order",
-            function: CreateOrder
+            function: f.CreateOrder
         }
     ],
-    "product_choice": [
-        {
-            type: "callback",
-            data: "default",
-            function: chooseCountOfProduct
-        }
-    ],
-    "unready_order": [
-        {
-            type: "callback",
-            data: "delete_unready",
-            function: solveUnreadyOrder
-        },
-        {
-            type: "callback",
-            data: "edit_unready",
-            function: solveUnreadyOrder
-        }
-    ],
-    "product_value_choice": [
-        {
-            type: "callback",
-            data: "default",
-            function: createOrderRow
-        }
-    ],
-    "add_product": [
-        {
-            type: "callback",
-            data: "default",
-            function: createOrderRow
-        }
-    ]
 }
 
-export type StatesList = "default" | "menu" | "product_choice" | "unready_order" | "product_value_choice" | "add_product";
+export type StatesList = "default" | "menu";
