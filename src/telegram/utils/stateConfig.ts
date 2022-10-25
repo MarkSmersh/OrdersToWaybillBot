@@ -20,11 +20,6 @@ export const stateConfig: Record<StatesList, EventModel[]> = {
         },
         {
             type: "command",
-            data: "/test",
-            function: f.Test
-        },
-        {
-            type: "command",
             data: "default",
             function: f.Unknown
         },

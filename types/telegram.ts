@@ -88,7 +88,8 @@ export interface ForceReply {
 export interface ReplyKeyboardButton {
     text: MessageData,
     request_contact?: boolean,
-    request_location?: boolean
+    request_location?: boolean,
+    web_app?: WebAppInfo
     // https://core.telegram.org/bots/api#keyboardbutton
 }
 

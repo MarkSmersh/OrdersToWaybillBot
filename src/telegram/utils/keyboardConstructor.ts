@@ -1,3 +1,4 @@
+import { connected } from "process";
 import { InlineKeyboardButton, InlineKeyboardMarkup, 
          ReplyKeyboardButton, ReplyKeyboardMarkup,
          ReplyKeyboardRemove, ForceReply,
@@ -31,11 +32,12 @@ export function ReplyMarkupConstructor (config: { resizeKeyboard?: boolean, oneT
     return JSON.stringify(replyKeyboard);
 }
 
-export function ReplyButtonConstructor (config: { text: MessageData, requestContact?: boolean, requestLocation?: boolean }): ReplyKeyboardButton {
+export function ReplyButtonConstructor (config: { text: MessageData, requestContact?: boolean, requestLocation?: boolean, webApp?: WebAppInfo }): ReplyKeyboardButton {
     return {
         text: config.text,
         request_contact: config.requestContact,
-        request_location: config.requestLocation
+        request_location: config.requestLocation,
+        web_app: config.webApp
     }
 }
 
