@@ -5,6 +5,7 @@
   "main": "ts-node ./src/index.ts",
   "scripts": {
     "start": "ts-node ./src/index.ts",
+    "dev": "nodemon ./src/index.ts",
     "ci-build": "npx tsc"
   },
   "keywords": [],
@@ -12,6 +13,7 @@
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^18.7.13",
+    "nodemon": "^2.0.20",
     "typescript": "^4.8.2"
   },
   "dependencies": {

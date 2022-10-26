@@ -48,6 +48,7 @@ export interface Message {
     author_signature?: string,
     entities?: MessageEntity[],
     reply_markup?: InlineKeyboardMarkup,
+    web_app_data?: WebAppData
 };
 
 export interface InlineKeyboardMarkup {
@@ -155,6 +156,11 @@ export interface CallbackQuery {
 
 export interface WebAppInfo {
     url: string
+}
+
+export interface WebAppData {
+    data: string,
+    button_text: string
 }
 
 //#endregion

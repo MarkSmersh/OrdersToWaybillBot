@@ -164,3 +164,37 @@ export const ProductInfo = <const> [
         unit: "g"
     },
 ]
+
+export interface WebAppOrderData {
+    order: WebAppOrderDataBasket[],
+    costumerData: {
+        phoneNumber: string,
+        lastName: string,
+        firstName: string,
+        middleName: string
+    },
+    mailData: {
+        settlement: WebAppSelected,
+        destination: WebAppSelected,
+        scanSheet: string
+    },
+    billingData: {
+        type: WebAppSelected,
+        whoPays: WebAppSelected
+    }
+}
+
+interface WebAppOrderDataBasket {
+    name: string,
+    packaging: number,
+    unit: string,
+    amount: number
+}
+
+interface WebAppSelected {
+    id: string | number,
+    name: string,
+    description?: string
+}
+
+

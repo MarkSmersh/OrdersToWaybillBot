@@ -34,8 +34,13 @@ export const stateConfig: Record<StatesList, EventModel[]> = {
             type: "message",
             data: "📝 Create order",
             function: f.CreateOrder
+        },
+        {
+            type: "message",
+            data: "default",
+            function: f.ReceiveOrderData
         }
-    ],
+    ]
 }
 
 export type StatesList = "default" | "menu";
