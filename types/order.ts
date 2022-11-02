@@ -151,7 +151,7 @@ export const ProductInfo = <const> [
                 price: 300,
             },
         ],
-        type: "Yeasts",
+        type: "Defoamer",
         unit: "g",
         img: "https://cdn-icons-png.flaticon.com/512/1748/1748107.png"
     },
