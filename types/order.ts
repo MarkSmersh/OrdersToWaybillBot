@@ -17,7 +17,9 @@ export const ProductInfo = <const> [
                 price: 680,
             }
         ],
-        unit: "kg"
+        type: "Ferments",
+        unit: "kg",
+        img: "https://cdn-icons-png.flaticon.com/512/1748/1748107.png"
     },
     {
         fullName: "Amylosubtilin",
@@ -33,7 +35,9 @@ export const ProductInfo = <const> [
                 price: 370,
             }
         ],
-        unit: "g"
+        type: "Ferments",
+        unit: "g",
+        img: "https://cdn-icons-png.flaticon.com/512/1748/1748107.png"
     },
     {
         fullName: "Glucavamorin",
@@ -49,7 +53,9 @@ export const ProductInfo = <const> [
                 price: 370,
             }
         ],
-        unit: "g"
+        type: "Ferments",
+        unit: "g",
+        img: "https://cdn-icons-png.flaticon.com/512/1748/1748107.png"
     },
     {
         fullName: "Cellulase",
@@ -65,7 +71,9 @@ export const ProductInfo = <const> [
                 price: 650,
             }
         ],
-        unit: "g"
+        type: "Ferments",
+        unit: "g",
+        img: "https://cdn-icons-png.flaticon.com/512/1748/1748107.png"
     },
     {
         fullName: "Protosubtilin",
@@ -81,7 +89,9 @@ export const ProductInfo = <const> [
                 price: 550,
             }
         ],
-        unit: "g"
+        type: "Ferments",
+        unit: "g",
+        img: "https://cdn-icons-png.flaticon.com/512/1748/1748107.png"
     },
     {
         fullName: "Beta-glucanase",
@@ -97,7 +107,9 @@ export const ProductInfo = <const> [
                 price: 520,
             }
         ],
-        unit: "g"
+        type: "Ferments",
+        unit: "g",
+        img: "https://cdn-icons-png.flaticon.com/512/1748/1748107.png"
     },
     {
         fullName: "Yeast",
@@ -121,7 +133,9 @@ export const ProductInfo = <const> [
                 price: 1300,
             },
         ],
-        unit: "g"
+        type: "Yeasts",
+        unit: "g",
+        img: "https://cdn-icons-png.flaticon.com/512/1748/1748107.png"
     },
     {
         fullName: "Defoamer",
@@ -137,7 +151,9 @@ export const ProductInfo = <const> [
                 price: 300,
             },
         ],
-        unit: "g"
+        type: "Yeasts",
+        unit: "g",
+        img: "https://cdn-icons-png.flaticon.com/512/1748/1748107.png"
     },
     {
         fullName: "Yeast for Bear",
@@ -161,30 +177,28 @@ export const ProductInfo = <const> [
                 price: 1300,
             },
         ],
-        unit: "g"
+        type: "Yeasts",
+        unit: "g",
+        img: "https://cdn-icons-png.flaticon.com/512/1748/1748107.png"
     },
 ]
 
 export interface WebAppOrderData {
-    order: WebAppOrderDataBasket[],
-    costumerData: {
-        phoneNumber: string,
-        lastName: string,
-        firstName: string,
-        middleName: string
-    },
-    mailData: {
-        settlement: WebAppSelected,
-        destination: WebAppSelected,
-        scanSheet: string
-    },
-    billingData: {
-        type: WebAppSelected,
-        whoPays: WebAppSelected
-    }
+    basket: WebAppOrderDataBasket[],
+    price: number,
+    phoneNumber: string,
+    lastName: string,
+    firstName: string,
+    middleName: string,
+    settlement: WebAppSelected,
+    destination: WebAppSelected,
+    scanSheet: string
+    type: WebAppSelected,
+    whoPays: WebAppSelected
 }
 
 interface WebAppOrderDataBasket {
+    productId: number,
     name: string,
     packaging: number,
     unit: string,
@@ -197,4 +211,61 @@ interface WebAppSelected {
     description?: string
 }
 
+export interface QueryEdit {
+    token?: string,
+    orderData: {
+        data: {
+            name: string,
+            type: string,
+            packaging: Record<number, number>,
+            unit: string,
+            img: string
+        }[],
+        basket: {
+            id: number,
+            packaging: number,
+            amount: number
+        }[],
+        price: number
+    },
+    costumerData: {
+        phoneNumber: string,
+        lastName: string,
+        firstName: string,
+        middleName: string
+    },
+    mailData: {
+        settlement: {
+            data: [],
+            selected: string
+        },
+        destination: {
+            data: [],
+            selected: string
+        },
+        scanSheet: string
+    },
+    billingData: {
+        type: {
+            data: [],
+            selected: string
+        },
+        whoPays: {
+            data: [],
+            selected: string
+        },
+    }
+}
 
+export interface QueryCreate {
+    token?: string,
+    orderData: {
+        data: {
+            name: string,
+            type: string,
+            packaging: Record<number, number>,
+            unit: string,
+            img: string
+        }[],
+    },
+}

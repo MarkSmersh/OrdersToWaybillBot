@@ -2,6 +2,7 @@ import sequelize from "../database";
 import { DataTypes as DT, CreationOptional, InferAttributes, InferCreationAttributes, Model } from 'sequelize';
 import { CounterpartyTypes, OrderStates, PaymentMethods } from "../../../types/novaposhta";
 import { StatesList } from "../../telegram/utils/stateConfig";
+import { WebAppOrderData } from "../../../types/order";
 
 export class UserState extends Model<InferAttributes<UserState>, InferCreationAttributes<UserState>> {
     declare user_id: number;
@@ -16,16 +17,16 @@ UserState.init({
 
 export class Order extends Model<InferAttributes<Order>, InferCreationAttributes<Order>> {
     declare id: CreationOptional<number>;
-    declare order: string | null;
+    declare order: string;
     declare orderState: OrderStates;
-    declare phoneNumber: number | null;
-    declare firstName: string | null;
-    declare lastName: string | null;
-    declare middleName: string | null;
-    declare billingType: PaymentMethods | null;
-    declare price: number | null;
-    declare destination: string | null;
-    declare waybill: string | null;
+    declare phoneNumber: string;
+    declare firstName: string;
+    declare lastName: string ;
+    declare middleName: string;
+    declare billingType: PaymentMethods;
+    declare price: number;
+    declare destination: string;
+    declare waybill: string;
     declare createdBy: number;  
     declare createdAt: CreationOptional<Date>;
     declare updatedBy: number;
@@ -36,14 +37,14 @@ Order.init({
     id: { type: DT.INTEGER, primaryKey: true, autoIncrement: true }, 
     order: { type: DT.STRING  },
     orderState: { type: DT.STRING },
-    phoneNumber: { type: DT.INTEGER },
+    phoneNumber: { type: DT.STRING },
     lastName: { type: DT.STRING },
     firstName: { type: DT.STRING },
     middleName: { type: DT.STRING },
     billingType: { type: DT.STRING },
     price: { type: DT.STRING },
     destination: { type: DT.STRING },
-    waybill: { type: DT.INTEGER },
+    waybill: { type: DT.STRING },
     createdBy: { type: DT.INTEGER },
     createdAt: { type: DT.DATE },
     updatedBy: { type: DT.INTEGER },
