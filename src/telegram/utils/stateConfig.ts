@@ -37,6 +37,11 @@ export const stateConfig: Record<StatesList, EventModel[]> = {
         },
         {
             type: "message",
+            data: "📑 Orders list",
+            function: f.OrdersList
+        },
+        {
+            type: "message",
             data: "default",
             function: f.ReceiveOrderData
         }

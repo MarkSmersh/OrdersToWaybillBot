@@ -40,7 +40,7 @@ export default async function startGreetings(client: Client, event: Message): Pr
     })
 
     let props = queryWebAppConstructor("create", {
-        token: process.env.NV_TOKEN,
+        // token: process.env.NV_TOKEN,
         orderData: OrderDataToSend(ProductInfo)
     })
 

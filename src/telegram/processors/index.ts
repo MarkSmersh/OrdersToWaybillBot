@@ -8,3 +8,4 @@ export { default as Unknown  } from "./commands/Unknown";
 
 export { default as CreateOrder  } from "./messages/CreateOrder";
 export { default as ReceiveOrderData } from "./messages/ReceiveOrder"
+export { default as OrdersList } from "./messages/OrdersList"

@@ -45,12 +45,13 @@ export interface AddressGetWarehousesRequest {
     CityName?: string,
     FindByString?: string, 
     CityRef?: string,
-    Page: string,
-    Limit: string,
-    Language: "UA",
-    TypeOfWarehouseRef: string,
-    WarehouseId: string,
+    Page?: string,
+    Limit?: string,
+    Language?: "UA",
+    TypeOfWarehouseRef?: string,
+    WarehouseId?: string,
     SettlementRef?: string,
+    Ref?: string
 }
 
 export interface BasicResponse {

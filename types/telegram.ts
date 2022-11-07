@@ -1,3 +1,4 @@
+import { Order } from "../src/database/models/models";
 import { ProductInfo } from "./order";
 
 declare module 'node:events' {
@@ -234,7 +235,7 @@ export interface RequestTypes {
 };
 
 export type SlashCommands = "/start" | "/help" | "/ping" | "/test";
-export type CallbackData = typeof ProductInfo[number]["shortName"] | "show_product_info" | "delete_message" | "delete_unready" | "edit_unready" | "productValue" | "productValue_100" | "productValue_250" | "productValue_500" | "productValue_750" | "productValue_1000"; 
+export type CallbackData = typeof ProductInfo[number]["shortName"] | "show_product_info" | "next" | "prev" | number; 
 export type MessageData = "📝 Create order" | "📦 Select packaged" | "📮 Create waybills" | "📑 Orders list"; 
 
 //#endregion
