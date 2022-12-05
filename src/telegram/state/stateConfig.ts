@@ -45,7 +45,14 @@ export const stateConfig: Record<StatesList, EventModel[]> = {
             data: "default",
             function: f.ReceiveOrderData
         }
+    ],
+    "order_nav": [
+        {
+            type: "callback",
+            data: "default",
+            function: f.OrderListStep
+        }
     ]
 }
 
-export type StatesList = "default" | "menu";
+export type StatesList = "default" | "menu" | "order_nav";

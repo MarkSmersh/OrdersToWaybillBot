@@ -1,7 +1,7 @@
 import { Client } from "./client/client";
 import { Update } from "../../types/telegram";
-import { StateFilter, FunctionReturn } from "./utils/stateFilter";
-import { StatesList } from "./utils/stateConfig";
+import { StateFilter, FunctionReturn } from "./state/stateFilter";
+import { StatesList } from "./state/stateConfig";
 import { UserState } from "../database/models/models";
 import { SlashCommands, MessageData, CallbackData } from "../../types/telegram";
 

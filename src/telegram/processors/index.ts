@@ -1,5 +1,6 @@
 export { default as CallbackAnswer  } from "./callbacks/CallbackAnswer";
 export { default as TypeOrderInfoTable  } from "./callbacks/TypeOrderInfoTable";
+export { default as OrderListStep } from "./callbacks/OrdersListStep"
 
 export { default as Help  } from "./commands/Help";
 export { default as Ping  } from "./commands/Ping";

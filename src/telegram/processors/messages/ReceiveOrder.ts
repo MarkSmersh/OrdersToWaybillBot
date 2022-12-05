@@ -3,6 +3,7 @@ import { Client } from "../../client/client";
 import { WebAppOrderData } from "../../../../types/order";
 import { Order } from "../../../database/models/models";
 import { PaymentMethods } from "../../../../types/novaposhta";
+import NovaposhtaClient from "../../../novaposhta/client/NovaposhtaClient";
 
 export default async function ReceiveOrderData (client: Client, event: Message) {
     if (!event.web_app_data) return
@@ -26,7 +27,8 @@ export default async function ReceiveOrderData (client: Client, event: Message) 
         middleName: data.middleName,
         billingType: data.type.name as PaymentMethods,
         price: data.price,
-        destination: data.destination.id as string,
+        destination: (await NovaposhtaClient.request("Address", "getWarehouses", { Ref: data.destination.id as string }))[0].Description,
+        destinationRef: data.destination.id.toString(),
         waybill: data.scanSheet,
         createdBy: event.chat.id,
         updatedBy: event.chat.id

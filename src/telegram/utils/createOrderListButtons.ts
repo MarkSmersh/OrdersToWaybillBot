@@ -1,7 +1,7 @@
 import { InlineKeyboardButton } from "../../../types/telegram";
 import { Order } from "../../database/models/models";
 
-export default function createOrderListButtons (onRow: number, orders: Order[], ids: Order[]) {
+export default function createOrderListButtons (onRow: number, step: number, orders: Order[], ids: Order[]) {
     let productLength = orders.length;
     let result: InlineKeyboardButton[][] = [[]];
     result.length = 0;
@@ -24,11 +24,11 @@ export default function createOrderListButtons (onRow: number, orders: Order[], 
     let allIds = ids.map((o) => { return o.id });
 
     if (allIds.includes(Math.max(...ordersIds) + 1)) {
-        navButtons.push({ text: "<", callback_data: "prev"  })
+        navButtons.push({ text: "<", callback_data: ordersIds[0] + step })
     }
 
-    if (allIds.includes(Math.min(...ordersIds) + 1)) {
-        navButtons.push({ text: ">", callback_data: "next"  })
+    if (allIds.includes(Math.min(...ordersIds) - 1)) {
+        navButtons.push({ text: ">", callback_data: ordersIds[0] - step })
     }
 
     if (navButtons.length !== 0) result.push(navButtons);

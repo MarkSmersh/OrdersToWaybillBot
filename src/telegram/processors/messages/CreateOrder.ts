@@ -2,10 +2,6 @@ import { Client } from "../../client/client";
 import { Message } from "../../../../types/telegram";
 import { InlineButtonConstructor as IBC,
          InlineMarkupConstructor as IMC } from "../../utils/keyboardConstructor";
-import { StatesList } from "../../utils/stateConfig";
-import { queryWebAppConstructor } from "../../utils/queryWebAppConstructor";
-import { OrderDataToSend } from "../../utils/dataToSend";
-import { ProductInfo } from "../../../../types/order";
 
 export default async function testCommand (client: Client, event: Message) {
 

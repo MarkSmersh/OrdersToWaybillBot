@@ -1,7 +1,7 @@
 import sequelize from "../database";
 import { DataTypes as DT, CreationOptional, InferAttributes, InferCreationAttributes, Model } from 'sequelize';
 import { CounterpartyTypes, OrderStates, PaymentMethods } from "../../../types/novaposhta";
-import { StatesList } from "../../telegram/utils/stateConfig";
+import { StatesList } from "../../telegram/state/stateConfig";
 import { WebAppOrderData } from "../../../types/order";
 
 export class UserState extends Model<InferAttributes<UserState>, InferCreationAttributes<UserState>> {
@@ -26,6 +26,7 @@ export class Order extends Model<InferAttributes<Order>, InferCreationAttributes
     declare billingType: PaymentMethods;
     declare price: number;
     declare destination: string;
+    declare destinationRef: string;
     declare waybill: string;
     declare createdBy: number;  
     declare createdAt: CreationOptional<Date>;
@@ -44,6 +45,7 @@ Order.init({
     billingType: { type: DT.STRING },
     price: { type: DT.STRING },
     destination: { type: DT.STRING },
+    destinationRef: { type: DT.STRING },
     waybill: { type: DT.STRING },
     createdBy: { type: DT.INTEGER },
     createdAt: { type: DT.DATE },

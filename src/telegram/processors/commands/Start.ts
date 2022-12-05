@@ -3,7 +3,7 @@ import { Message } from "../../../../types/telegram";
 import { ReplyMarkupConstructor as RMC,
          ReplyButtonConstructor as RBC  } from "../../utils/keyboardConstructor";
 import { Order } from "../../../database/models/models";
-import { StatesList } from "../../utils/stateConfig";
+import { StatesList } from "../../state/stateConfig";
 import { queryWebAppConstructor } from "../../utils/queryWebAppConstructor";
 import { OrderDataToSend } from "../../utils/dataToSend";
 import { ProductInfo } from "../../../../types/order";
