@@ -61,7 +61,7 @@ const t = new Telegram({
                 data: "default",
                 function: f.OrderListStep
             }
-            ]
+        ]
     }, {
         onStateUpdate: onStateUpdate
     })

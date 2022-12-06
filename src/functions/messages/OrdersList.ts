@@ -8,10 +8,11 @@ export default async function OrdersList (client: Telegram, event: Message): Pro
     let timePrev = Date.now();
     // let orders = await Order.findAll({ limit: 10 });
     let orders = await Order.findAll({ order: [ [ "id", "DESC" ] ], limit: 10 });
+    console.log(orders);
     let ids = await Order.findAll({ attributes: ["id"] });
     console.log(`TIME WASTE: ${Date.now() - timePrev}`)
 
-    let ordersMessage = await ordersToText(orders);
+    let ordersMessage = ordersToText(orders);
     let replyMarkup = createOrderListButtons(5, 10, orders, ids);
 
     await client.request("sendMessage", { chat_id: event.chat.id, /*parse_mode: "MarkdownV2",*/

@@ -7,6 +7,7 @@ export default function createOrderListButtons (onRow: number, step: number, ord
     result.length = 0;
     let pushCounter = 0;
 
+    // creating n ceils per stroke
     for (let i = 0; i < Math.ceil(productLength / onRow); i++) {
         let buttonArray: InlineKeyboardButton[] = [];
         let less = ((productLength - pushCounter < onRow) ? productLength - pushCounter : onRow)
@@ -32,6 +33,8 @@ export default function createOrderListButtons (onRow: number, step: number, ord
     }
 
     if (navButtons.length !== 0) result.push(navButtons);
+
+    console.log(result);
 
     return result;
 }
