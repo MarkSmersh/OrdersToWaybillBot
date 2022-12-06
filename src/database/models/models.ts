@@ -1,15 +1,14 @@
 import sequelize from "../database";
 import { DataTypes as DT, CreationOptional, InferAttributes, InferCreationAttributes, Model } from 'sequelize';
 import { CounterpartyTypes, OrderStates, PaymentMethods } from "../../../types/novaposhta";
-import { StatesList } from "../../telegram/state/stateConfig";
 import { WebAppOrderData } from "../../../types/order";
 
 export class UserState extends Model<InferAttributes<UserState>, InferCreationAttributes<UserState>> {
     declare user_id: number;
-    declare state: StatesList;
+    declare state: string;
 }
 
-UserState.init({
+UserState.init({    
     user_id: { type: DT.INTEGER, unique: true },
     state: { type: DT.STRING }
 }, { tableName: 'user_states', sequelize });

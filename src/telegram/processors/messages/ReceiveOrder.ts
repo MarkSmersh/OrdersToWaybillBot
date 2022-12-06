@@ -1,11 +1,11 @@
-import { Message } from "../../../../types/telegram";
-import { Client } from "../../client/client";
+import { Telegram, Message } from "@marksmersh/telegramts";
+
 import { WebAppOrderData } from "../../../../types/order";
 import { Order } from "../../../database/models/models";
 import { PaymentMethods } from "../../../../types/novaposhta";
 import NovaposhtaClient from "../../../novaposhta/client/NovaposhtaClient";
 
-export default async function ReceiveOrderData (client: Client, event: Message) {
+export default async function ReceiveOrderData (client: Telegram, event: Message) {
     if (!event.web_app_data) return
     console.log(event.web_app_data);
     let data = JSON.parse(event.web_app_data.data) as WebAppOrderData;

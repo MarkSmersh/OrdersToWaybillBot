@@ -1,8 +1,8 @@
-import { Client } from "../../client/client";
-import { CallbackQuery } from "../../../../types/telegram";
+import { Telegram, CallbackQuery } from "@marksmersh/telegramts";
+
 import { ProductInfo } from "../../../../types/order";
 
-export default async function typeOrderInfoTable (client: Client, event: CallbackQuery) {
+export default async function typeOrderInfoTable (client: Telegram, event: CallbackQuery) {
     await client.request("answerCallbackQuery", { callback_query_id: event.id })
     
     await client.request("sendMessage", { chat_id: event.message?.chat.id, parse_mode: "MarkdownV2",

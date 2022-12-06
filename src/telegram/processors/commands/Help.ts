@@ -1,17 +1,15 @@
-import { InlineButtonConstructor as IBC,
-         InlineMarkupConstructor as IMC } from "../../utils/keyboardConstructor";
-import { Client } from "../../client/client";
-import { Message } from "../../../../types/telegram";
+import { Telegram, Message, InlineMarkup, InlineButton } from "@marksmersh/telegramts";
 
-export default async function helpMessage(client: Client, event: Message) {
+
+export default async function helpMessage(client: Telegram, event: Message) {
     await client.request("sendMessage", { chat_id: event.chat.id, parse_mode: "MarkdownV2",
         text: `*Choose with what you need help below:*`,
-        reply_markup: IMC(
+        reply_markup: InlineMarkup(
             [
-                IBC({ text: "Show product info", callbackData: "show_product_info" })
+                InlineButton({ text: "Show product info", callbackData: "show_product_info" })
             ],
             [
-                IBC({ text: "Write to admin", url: `tg://user?id=${process.env.ADMIN_ID as string}`})
+                InlineButton({ text: "Write to admin", url: `tg://user?id=${process.env.ADMIN_ID as string}`})
             ]
         )
     });

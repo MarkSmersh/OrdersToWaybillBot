@@ -1,9 +1,6 @@
-import { Client } from "../../client/client";
-import { Message } from "../../../../types/telegram";
-import { ReplyMarkupConstructor as RMC,
-         ReplyButtonConstructor as RBC  } from "../../utils/keyboardConstructor";
+import { Telegram, Message, ReplyMarkup, ReplyButton } from "@marksmersh/telegramts";
+
 import { Order } from "../../../database/models/models";
-import { StatesList } from "../../state/stateConfig";
 import { queryWebAppConstructor } from "../../utils/queryWebAppConstructor";
 import { OrderDataToSend } from "../../utils/dataToSend";
 import { ProductInfo } from "../../../../types/order";
@@ -12,7 +9,7 @@ import path from "path";
 import * as dotenv from "dotenv";
 dotenv.config({ path: path.resolve(__dirname + "/../../.env") });
 
-export default async function startGreetings(client: Client, event: Message): Promise<StatesList | void> {
+export default async function startGreetings(client: Telegram, event: Message): Promise<string | void> {
     console.log(getCurrentTimeString());
     
     await client.request("sendMessage", { chat_id: event.chat.id, parse_mode: "MarkdownV2",
@@ -52,15 +49,15 @@ export default async function startGreetings(client: Client, event: Message): Pr
 📦 Packaged: \`${packagedCount}\`
 📮 Prepared: \`${preparedCount}\`
 📨 Sended: \`${sendedCount}\`\n`,
-        reply_markup: RMC({ resizeKeyboard: true, oneTimeKeyboard: true },
+        reply_markup: ReplyMarkup({ resizeKeyboard: true, oneTimeKeyboard: true },
             [
-                RBC({ text: "📝 Create order", webApp: { url: `https://marksmersh1.theweb.place${props}` }})
+                ReplyButton({ text: "📝 Create order", webApp: { url: `https://marksmersh1.theweb.place${props}` }})
             ],
             [
-                RBC({ text: "📦 Select packaged" }), RBC({ text: "📮 Create waybills" })
+                ReplyButton({ text: "📦 Select packaged" }), ReplyButton({ text: "📮 Create waybills" })
             ],
             [
-                RBC({ text: "📑 Orders list" })
+                ReplyButton({ text: "📑 Orders list" })
             ]
         )
     });

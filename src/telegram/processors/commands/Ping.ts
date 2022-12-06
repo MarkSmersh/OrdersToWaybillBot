@@ -1,7 +1,6 @@
-import { Client } from "../../client/client";
-import { Message } from "../../../../types/telegram";
+import { Telegram, Message } from "@marksmersh/telegramts";
 
-export default async function pingCalculation(client: Client, event: Message) {
+export default async function pingCalculation(client: Telegram, event: Message) {
     let timeBefore = Date.now();
 
     let message = await client.request("sendMessage", { chat_id: event.chat.id,
