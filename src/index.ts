@@ -1,5 +1,5 @@
 import { Telegram, States } from "@marksmersh/telegramts";
-import * as f from "./telegram/processors/index";
+import * as f from "./functions/index";
 
 import database from "./database/database";
 import { UserState } from "./database/models/models";

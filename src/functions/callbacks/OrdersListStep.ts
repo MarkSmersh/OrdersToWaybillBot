@@ -1,7 +1,7 @@
 import { Telegram, CallbackQuery, InlineMarkup } from "@marksmersh/telegramts";
 
 import { Op } from "sequelize";
-import { Order } from "../../../database/models/models";
+import { Order } from "../../database/models/models";
 import createOrderListButtons from "../../utils/createOrderListButtons";
 import ordersToText from "../../utils/ordersToText";
 

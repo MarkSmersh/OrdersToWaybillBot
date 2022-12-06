@@ -1,6 +1,6 @@
 import { Counterparty, CounterpartyContactPersons } from "../database/models/models";
-import NovaposhtaClient from "../novaposhta/client/NovaposhtaClient";
-import { CounterpartyProperties } from "../../types/novaposhta";
+import NovaposhtaClient from "../novaposhta/NovaposhtaClient";
+import { CounterpartyProperties } from "../types/novaposhta";
 
 export async function updateCounterparties () {
     await (async function update(page: number = 0, counterpartyProperty: CounterpartyProperties = "Recipient") {

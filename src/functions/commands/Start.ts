@@ -1,9 +1,9 @@
 import { Telegram, Message, ReplyMarkup, ReplyButton } from "@marksmersh/telegramts";
 
-import { Order } from "../../../database/models/models";
+import { Order } from "../../database/models/models";
 import { queryWebAppConstructor } from "../../utils/queryWebAppConstructor";
 import { OrderDataToSend } from "../../utils/dataToSend";
-import { ProductInfo } from "../../../../types/order";
+import { ProductInfo } from "../../types/order";
 
 import path from "path";
 import * as dotenv from "dotenv";

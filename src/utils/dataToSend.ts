@@ -1,4 +1,4 @@
-import { ProductInfo, QueryCreate } from "../../../types/order";
+import { ProductInfo, QueryCreate } from "../types/order";
 
 export function OrderDataToSend(data: typeof ProductInfo): QueryCreate["orderData"] {
     let order = [] as unknown as QueryCreate["orderData"]["data"];

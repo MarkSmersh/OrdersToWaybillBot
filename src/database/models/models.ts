@@ -1,7 +1,7 @@
 import sequelize from "../database";
 import { DataTypes as DT, CreationOptional, InferAttributes, InferCreationAttributes, Model } from 'sequelize';
-import { CounterpartyTypes, OrderStates, PaymentMethods } from "../../../types/novaposhta";
-import { WebAppOrderData } from "../../../types/order";
+import { CounterpartyTypes, OrderStates, PaymentMethods } from "../../types/novaposhta";
+import { WebAppOrderData } from "../../types/order";
 
 export class UserState extends Model<InferAttributes<UserState>, InferCreationAttributes<UserState>> {
     declare user_id: number;

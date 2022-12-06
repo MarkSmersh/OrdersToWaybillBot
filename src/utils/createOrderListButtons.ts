@@ -1,5 +1,5 @@
 import { InlineKeyboardButton } from "@marksmersh/telegramts/src/types/requests";
-import { Order } from "../../database/models/models";
+import { Order } from "../database/models/models";
 
 export default function createOrderListButtons (onRow: number, step: number, orders: Order[], ids: Order[]) {
     let productLength = orders.length;

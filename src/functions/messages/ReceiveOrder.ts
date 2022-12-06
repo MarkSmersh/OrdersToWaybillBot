@@ -1,9 +1,9 @@
 import { Telegram, Message } from "@marksmersh/telegramts";
 
-import { WebAppOrderData } from "../../../../types/order";
-import { Order } from "../../../database/models/models";
-import { PaymentMethods } from "../../../../types/novaposhta";
-import NovaposhtaClient from "../../../novaposhta/client/NovaposhtaClient";
+import { WebAppOrderData } from "../../types/order";
+import { Order } from "../../database/models/models";
+import { PaymentMethods } from "../../types/novaposhta";
+import NovaposhtaClient from "../../novaposhta/NovaposhtaClient";
 
 export default async function ReceiveOrderData (client: Telegram, event: Message) {
     if (!event.web_app_data) return

@@ -1,5 +1,5 @@
-import { Order } from "../../database/models/models";
-import NovaposhtaClient from "../../novaposhta/client/NovaposhtaClient";
+import { Order } from "../database/models/models";
+import NovaposhtaClient from "../novaposhta/NovaposhtaClient";
 
 export default async function ordersToText (orders: Order[]): Promise<string> {
     let ordersMessage = "";

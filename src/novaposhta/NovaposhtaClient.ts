@@ -4,7 +4,7 @@ import * as dotenv from "dotenv";
 import path from "path";
 dotenv.config({ path: path.resolve(__dirname + "/../../.env") });
 
-import { RequestTypes, BasicRequest, BasicResponse } from "../../../types/novaposhta";
+import { RequestTypes, BasicRequest, BasicResponse } from "../types/novaposhta";
 
 class Client {
     private basicUrl: string = "https://api.novaposhta.ua/v2.0/json/";

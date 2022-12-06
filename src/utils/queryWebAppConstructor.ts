@@ -1,4 +1,4 @@
-import { QueryCreate, QueryEdit } from "../../../types/order";
+import { QueryCreate, QueryEdit } from "../types/order";
 
 export function queryWebAppConstructor
     <M extends keyof QueryHelper>

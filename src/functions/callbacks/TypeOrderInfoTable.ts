@@ -1,6 +1,6 @@
 import { Telegram, CallbackQuery } from "@marksmersh/telegramts";
 
-import { ProductInfo } from "../../../../types/order";
+import { ProductInfo } from "../../types/order";
 
 export default async function typeOrderInfoTable (client: Telegram, event: CallbackQuery) {
     await client.request("answerCallbackQuery", { callback_query_id: event.id })
