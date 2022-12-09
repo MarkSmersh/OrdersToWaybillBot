@@ -269,3 +269,9 @@ export interface QueryCreate {
         }[],
     },
 }
+
+export interface OrderData {
+    productId: number,
+    packaging: number,
+    amount: number
+}

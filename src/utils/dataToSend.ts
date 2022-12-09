@@ -1,7 +1,7 @@
 import { ProductInfo, QueryCreate } from "../types/order";
 
 export function OrderDataToSend(data: typeof ProductInfo): QueryCreate["orderData"] {
-    let order = [] as unknown as QueryCreate["orderData"]["data"];
+    let order = [] as QueryCreate["orderData"]["data"];
     
     data.forEach((d) => {
         order.push({

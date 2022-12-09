@@ -6,6 +6,7 @@ declare global {
         NV_TOKEN: string;
         TOKEN: string;
         ADMIN_ID: string;
+        WEBAPP: string;
       }
     }
 }

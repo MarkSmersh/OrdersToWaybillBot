@@ -23,6 +23,7 @@ export class Order extends Model<InferAttributes<Order>, InferCreationAttributes
     declare lastName: string ;
     declare middleName: string;
     declare billingType: PaymentMethods;
+    declare whoPays: string;
     declare price: number;
     declare destination: string;
     declare destinationRef: string;
@@ -42,6 +43,7 @@ Order.init({
     firstName: { type: DT.STRING },
     middleName: { type: DT.STRING },
     billingType: { type: DT.STRING },
+    whoPays: { type: DT.STRING },
     price: { type: DT.STRING },
     destination: { type: DT.STRING },
     destinationRef: { type: DT.STRING },

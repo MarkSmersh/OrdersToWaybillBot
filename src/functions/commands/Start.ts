@@ -31,7 +31,7 @@ export default async function startGreetings(client: Telegram, event: Message): 
         switch (order.orderState) {
             case "created": createdCount++; break;
             case "packaged": packagedCount++; break;
-            case "prepared": preparedCount++; break;
+            // case "prepared": preparedCount++; break;
             case "sended": sendedCount++; break;
         }
     })
@@ -51,7 +51,7 @@ export default async function startGreetings(client: Telegram, event: Message): 
 📨 Sended: \`${sendedCount}\`\n`,
         reply_markup: ReplyMarkup({ resizeKeyboard: true, oneTimeKeyboard: true },
             [
-                ReplyButton({ text: "📝 Create order", webApp: { url: `https://marksmersh1.theweb.place${props}` }})
+                ReplyButton({ text: "📝 Create order", webApp: { url: `${process.env.WEBAPP}${props}` }})
             ],
             [
                 ReplyButton({ text: "📦 Select packaged" }), ReplyButton({ text: "📮 Create waybills" })

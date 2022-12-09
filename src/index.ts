@@ -36,7 +36,7 @@ const t = new Telegram({
                 type: "callback",
                 data: "show_product_info",
                 function: f.TypeOrderInfoTable
-            }
+            },
         ],
         "menu": [
             {
@@ -75,17 +75,17 @@ t.once("load", async () => {
     await database.sync();
     await database.authenticate();
 
-    let states = await UserState.findAll()
+    let states = await UserState.findAll();
 
     t.State?.set(
         states.map((s) => { return { id: s.user_id, state: s.state } })
     )
 
-    await updateCounterparties();
-    await updateCounterpartiesContactPersons();
+    // await updateCounterparties();
+    // await updateCounterpartiesContactPersons();
 
-    setInterval(() => updateCounterparties(), 86400000);
-    setInterval(() => updateCounterpartiesContactPersons(), 86400000);
+    // setInterval(() => updateCounterparties(), 86400000);
+    // setInterval(() => updateCounterpartiesContactPersons(), 86400000);
 
     t.start();
 })

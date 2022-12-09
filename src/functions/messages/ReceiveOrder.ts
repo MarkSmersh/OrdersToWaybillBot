@@ -6,6 +6,7 @@ import { PaymentMethods } from "../../types/novaposhta";
 import NovaposhtaClient from "../../novaposhta/NovaposhtaClient";
 
 export default async function ReceiveOrderData (client: Telegram, event: Message) {
+    console.log(event);
     if (!event.web_app_data) return
     console.log(event.web_app_data);
     let data = JSON.parse(event.web_app_data.data) as WebAppOrderData;
@@ -26,6 +27,7 @@ export default async function ReceiveOrderData (client: Telegram, event: Message
         lastName: data.lastName,
         middleName: data.middleName,
         billingType: data.type.name as PaymentMethods,
+        whoPays: data.whoPays.name,
         price: data.price,
         destination: (await NovaposhtaClient.request("Address", "getWarehouses", { Ref: data.destination.id as string }))[0].Description,
         destinationRef: data.destination.id.toString(),

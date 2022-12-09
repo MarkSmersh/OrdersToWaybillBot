@@ -13,7 +13,7 @@ export default function createOrderListButtons (onRow: number, step: number, ord
         let less = ((productLength - pushCounter < onRow) ? productLength - pushCounter : onRow)
         for (let index = 0; index < less; index++) { // 7
             let current = orders[pushCounter]
-            buttonArray.push({ text: current.id.toString(), callback_data: current.id.toString() })
+            buttonArray.push({ text: current.id.toString(), callback_data: "id_" +  current.id.toString() })
             pushCounter++;
         }
         result.push(buttonArray);
@@ -25,11 +25,11 @@ export default function createOrderListButtons (onRow: number, step: number, ord
     let allIds = ids.map((o) => { return o.id });
 
     if (allIds.includes(Math.max(...ordersIds) + 1)) {
-        navButtons.push({ text: "<", callback_data: (ordersIds[0] + step).toString() })
+        navButtons.push({ text: "<", callback_data: "step_" + (ordersIds.at(0) as number + step).toString() }) //
     }
 
     if (allIds.includes(Math.min(...ordersIds) - 1)) {
-        navButtons.push({ text: ">", callback_data: (ordersIds[0] - step).toString() })
+        navButtons.push({ text: ">", callback_data: "step_" + (ordersIds.at(-1) as number - 1).toString() }) //
     }
 
     if (navButtons.length !== 0) result.push(navButtons);
