@@ -9,7 +9,7 @@ import ordersToText from "../../utils/ordersToText";
 export default async function OrdersNav(client: Telegram, event: CallbackQuery): Promise<string> {
     const data = event.data;
 
-    if (data?.split("_").includes("step")) {
+    if (data?.split("_").includes("step") || data?.split("_").includes("return")) {
         return (await ListNav(client, event));
     }
 
@@ -20,9 +20,10 @@ export default async function OrdersNav(client: Telegram, event: CallbackQuery):
     return "order_nav";
 }
 
-async function ListNav (client: Telegram, event: CallbackQuery): Promise<string> {
-    console.log(event.data);
-    let orders = await Order.findAll({ where: { id: { [Op.lte]: event.data }}, order: [ [ "id", "DESC" ] ], limit: 10 })
+export async function ListNav (client: Telegram, event: CallbackQuery): Promise<string> {
+    const data = event.data?.split("_") as string[];
+    
+    let orders = await Order.findAll({ where: { id: { [Op.lte]: data[1]   }}, order: [ [ "id", "DESC" ] ], limit: 10 })
     let ids = await Order.findAll({ attributes: ["id"] });
 
     let ordersMessage = ordersToText(orders);

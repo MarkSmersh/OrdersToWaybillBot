@@ -61,6 +61,18 @@ const t = new Telegram({
                 data: "default",
                 function: f.OrderListStep
             }
+        ],
+        "order_data": [
+            {
+                type: "callback",
+                data: "default",
+                function: f.OrderState
+            },
+            {
+                type: "message",
+                data: "default",
+                function: f.ReceiveUpdateOrder
+            }
         ]
     }, {
         onStateUpdate: onStateUpdate

@@ -184,6 +184,7 @@ export const ProductInfo = <const> [
 ]
 
 export interface WebAppOrderData {
+    orderId: number,
     basket: WebAppOrderDataBasket[],
     price: number,
     phoneNumber: string,
@@ -212,6 +213,7 @@ interface WebAppSelected {
 }
 
 export interface QueryEdit {
+    orderId: number,
     token?: string,
     orderData: {
         data: {
@@ -247,11 +249,11 @@ export interface QueryEdit {
     },
     billingData: {
         type: {
-            data: [],
+            data: string[],
             selected: string
         },
         whoPays: {
-            data: [],
+            data: string[],
             selected: string
         },
     }

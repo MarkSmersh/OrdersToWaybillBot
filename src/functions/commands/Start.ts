@@ -38,7 +38,9 @@ export default async function startGreetings(client: Telegram, event: Message): 
 
     let props = queryWebAppConstructor("create", {
         // token: process.env.NV_TOKEN,
-        orderData: OrderDataToSend(ProductInfo)
+        orderData: {
+            data: OrderDataToSend(ProductInfo)
+        }
     })
 
     // console.log(props);
