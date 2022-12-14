@@ -9,9 +9,7 @@ import path from "path";
 import * as dotenv from "dotenv";
 dotenv.config({ path: path.resolve(__dirname + "/../../.env") });
 
-export default async function startGreetings(client: Telegram, event: Message): Promise<string | void> {
-    console.log(getCurrentTimeString());
-    
+export default async function startGreetings(client: Telegram, event: Message): Promise<string | void> {    
     await client.request("sendMessage", { chat_id: event.chat.id, parse_mode: "MarkdownV2",
         text: `*Good ${getCurrentTimeString()}*, [${event.chat.first_name}](tg://user?id=${event.chat.id})`});
 
@@ -42,8 +40,6 @@ export default async function startGreetings(client: Telegram, event: Message): 
             data: OrderDataToSend(ProductInfo)
         }
     })
-
-    // console.log(props);
     
     await client.request("sendMessage", { chat_id: event.chat.id, parse_mode: "MarkdownV2",
         text: `*THE LIST OF CURRENT ORDERS*\n

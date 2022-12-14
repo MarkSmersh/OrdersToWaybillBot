@@ -3,7 +3,7 @@ import * as f from "./functions/index";
 
 import database from "./database/database";
 import { UserState } from "./database/models/models";
-import { updateCounterparties, updateCounterpartiesContactPersons } from "./utils/updateFromServer";
+// import { updateCounterparties, updateCounterpartiesContactPersons } from "./utils/updateFromServer";
 
 import * as dotenv from "dotenv";
 dotenv.config({ path: __dirname + "/.env" });
@@ -53,6 +53,11 @@ const t = new Telegram({
                 type: "message",
                 data: "default",
                 function: f.ReceiveOrderData
+            },
+            {
+                type: "callback",
+                data: "default",
+                function: f.CreateWaybill
             }
         ],
         "order_nav": [

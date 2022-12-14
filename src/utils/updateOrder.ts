@@ -7,7 +7,7 @@ import { WebAppOrderData } from "../types/order"
 export async function updateOrder (type: "create" | "edit", data: WebAppOrderData, event: Message) {
     if (type === "create") {
         console.log(data);
-        return (await Order.upsert({
+        const order = (await Order.upsert({
             order: JSON.stringify(
                 data.basket.map((b) => {
                     return {
@@ -30,12 +30,14 @@ export async function updateOrder (type: "create" | "edit", data: WebAppOrderDat
             waybill: data.scanSheet,
             createdBy: event.chat.id,
             updatedBy: event.chat.id
-        }))
+        }));
+
+        return order[0];
     }
 
     if (type === "edit") {
         console.log(data);
-        await Order.update({
+        const order = (await Order.update({
             order: JSON.stringify(
                 data.basket.map((b) => {
                     return {
@@ -57,9 +59,6 @@ export async function updateOrder (type: "create" | "edit", data: WebAppOrderDat
             updatedBy: event.chat.id
         }, {
             where: { id: data.orderId }
-        });
-        console.log("lol");
+        }));
     }
-
-    return undefined;
 } 

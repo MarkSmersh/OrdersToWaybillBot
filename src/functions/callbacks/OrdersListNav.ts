@@ -29,9 +29,6 @@ export async function ListNav (client: Telegram, event: CallbackQuery): Promise<
     let ordersMessage = ordersToText(orders);
     let replyMarkup = createOrderListButtons(5, 10, orders, ids);
 
-    // console.log(ordersMessage);
-    // console.log(ordersMessage);
-
     await client.request("editMessageText", { chat_id: event.from.id, message_id: event.message?.message_id as number, /*parse_mode: "MarkdownV2",*/
         text: ordersMessage,
         reply_markup: InlineMarkup(...replyMarkup)

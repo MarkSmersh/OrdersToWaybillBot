@@ -8,26 +8,26 @@ export interface BasicRequest {
 export interface InternetDocumentSaveRequest {
     SenderWarehouseIndex?: string,
     RecipientWarehouseIndex?: string,
-    PayerType: CounterpartyTypes,
-    PaymentMethod: PaymentMethods,
-    DateTime: string,
-    CargoType: string,
+    PayerType?: CounterpartyTypes,
+    PaymentMethod?: PaymentMethods,
+    DateTime?: string,
+    CargoType?: string,
     VolumeGeneral?: string,
-    Weight: string,
-    ServiceType: ServiceTypes,
-    SeatsAmount: string,
-    Description: string,
-    Cost: string,
-    CitySender: string,
-    Sender: string,
-    SenderAddress: string,
-    ContactSender: string,
-    SendersPhone: string,
-    CityRecipient: string,
-    Recipient: string,
-    RecipientAddress: string,
-    ContactRecipient: string,
-    RecipientsPhone: string
+    Weight?: string,
+    ServiceType?: ServiceTypes,
+    SeatsAmount?: string,
+    Description?: string,
+    Cost?: string,
+    CitySender?: string,
+    Sender?: string,
+    SenderAddress?: string,
+    ContactSender?: string,
+    SendersPhone?: string,
+    CityRecipient?: string,
+    Recipient?: string,
+    RecipientAddress?: string,
+    ContactRecipient?: string,
+    RecipientsPhone?: string
     // https://developers.novaposhta.ua/view/model/a90d323c-8512-11ec-8ced-005056b2dbe1/method/a965630e-8512-11ec-8ced-005056b2dbe1
 }
 
@@ -37,7 +37,7 @@ export interface CounterpartySaveRequest {
     LastName: string,
     Phone: string,
     Email: string,
-    CounterpartyType: CounterpartyTypes,
+    CounterpartyType: "PrivatePerson",
     CounterpartyProperty: CounterpartyProperties
 }
 
@@ -183,7 +183,7 @@ export interface AddressGetWarehousesResponse {
 export type CounterpartyProperties = "Sender" | "Recipient" | "ThirdPerson";
 export type ServiceTypes = "DoorsDoors" | "DoorsWarehouse" | "WarehouseWarehouse" | "WarehouseDoors";
 export type PaymentMethods = "Cash" | "NonCash";
-export type CounterpartyTypes = "Recipient" | string;
+export type CounterpartyTypes = "Recipient" | "Sender";
 export type OrderStates = "created" | "packaged" | "sended";
 
 interface Dimensions {

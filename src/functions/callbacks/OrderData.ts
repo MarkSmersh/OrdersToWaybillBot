@@ -59,24 +59,30 @@ ${Escape(order.destination)}
         }
     })
 
-    const replyMarkup = InlineMarkup([
+    const replyMarkup = [[
         InlineButton({ text: "Mark as packaged", callbackData: `packaged_${order.id}` }), InlineButton({ text: "Mark as sent", callbackData: `sent_${order.id}` })
     ], [
         InlineButton({ text: "Return", callbackData: `return_${order.id}`})
-    ])
+    ]]
+
+    if (order.waybill === null) {
+        replyMarkup.push([
+            InlineButton({ text: "Create waybill", callbackData: `waybill_${order.id}` })
+        ])
+    }
 
     const webAppMarkup = ReplyMarkup({ resizeKeyboard: true }, [
         ReplyButton({ text: "Edit order",  webApp: { url: `${process.env.WEBAPP}${props}` } })
     ])
 
-    client.request("editMessageText", { chat_id: event.from.id,
+    await client.request("editMessageText", { chat_id: event.from.id,
         message_id: event.message?.message_id as number,
         text: text,
         parse_mode: "MarkdownV2",
-        reply_markup: replyMarkup
+        reply_markup: InlineMarkup(...replyMarkup)
     })
 
-    client.request("sendMessage", { chat_id: event.from.id,
+    await client.request("sendMessage", { chat_id: event.from.id,
         text: `*Order ID: ${order.id}*`,
         parse_mode: "MarkdownV2",
         reply_markup: webAppMarkup })

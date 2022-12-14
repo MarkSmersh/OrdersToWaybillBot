@@ -1,10 +1,10 @@
 import { CallbackQuery, Telegram } from "@marksmersh/telegramts";
 import { Order } from "../../database/models/models";
+import { updateWaybill } from "../../utils/updateWaybill";
+import CreateWaybill from "./CreateWaybill";
 import { ListNav } from "./OrdersListNav";
 
 export default async function OrderState (client: Telegram, event: CallbackQuery) {
-    console.log(event);
-
     await client.request("answerCallbackQuery", { callback_query_id: event.id });
     
     const data = event.data?.split("_") as Array<string>; 
@@ -12,6 +12,11 @@ export default async function OrderState (client: Telegram, event: CallbackQuery
 
     if (data[0] === "return") {
         return (await ListNav(client, event));
+    }
+
+    if (data[0] === "waybill") {
+        event.data = data[1];
+        return (await CreateWaybill(client, event));
     }
 
     if (data[0] === "packaged") {
